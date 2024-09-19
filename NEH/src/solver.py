@@ -1,0 +1,112 @@
+import numpy as np
+import math
+import random
+
+import utils
+
+def _bra (lst, beta = 0.3):
+    """
+    This method carry out a biased randomised selection on a set of items.
+    The randomisation is made using a quasi-geometric distribution
+
+                        f(x) = (1 - beta)^x
+
+    where the beta parameter ranges between 0 and 1.
+
+    :param beta: The parameter of the quasi-geometric distribution.
+    :param lst: The set of options from which it is possible
+                to select.
+    """
+    L, options = len(lst), list(lst)
+    for _ in range(L):
+        idx = int(math.log(random.random(), 1 - beta)) % len(options)
+        yield options.pop(idx)
+
+
+class Solver (object):
+    """
+    An instance of this class represents the algorithm proposed.
+    """
+
+    def __init__(self, problem):
+        """
+        Initialise.
+
+        :param problem: The problem to solve.
+        """
+        self.problem = problem
+
+    def NEH (self):
+        """
+        This method implements the Nawaz, Enscore and Ham algorithm
+        with the Taillard acceleration described in
+
+        Taillard, E. (1990). Some efficient heuristic methods for the flow shop
+        sequencing problem. European Journal of Operational Research, 47(1), 65-74.
+
+        :return: The sequence in which jobs should be processed and the respective
+                makespan.
+        """
+        # Take useful variables to the stack
+        times = self.problem.processing_times
+        n_jobs = self.problem.n_jobs
+        n_machines = self.problem.n_machines
+        # Sort jobs for decreasing processing time on machines.
+        jobs = sorted(list(range(0, n_jobs)), key=lambda i: times[i, :].sum(), reverse=True)
+        # Find the best schedule with the first two jobs in an exaustive way.
+        # M1 = Makespan when first job in list is made first.
+        # M2 = Makespan when second job in list is made first.
+        # end1 = End of first job on current machine when first job is made first
+        # end2 = End of second job on current machine when second job is made first
+        #first_job, second_job = tuple(jobs[:2])
+        #M1, end1 = 0, 0
+        #M2, end2 = 0, 0
+        #for j in range(n_machines):
+        #    end1 += times[first_job, j]
+        #    M1 = max(end1, M1) + times[second_job, j]
+        #    end2 += times[second_job, j]
+        #    M2 = max(end2, M2) + times[first_job, j]
+        # Initialise the solution with the first job
+        sequence = [jobs[0],]
+        # For each other job...
+        for k, job in zip(range(1, n_jobs), jobs[1:]):
+
+            for i in range(k+1):
+                newseq = list(sequence)
+                newseq.insert(i, job)
+                print(newseq, utils.makespan(newseq, times))
+
+            # Init earliest completion time of i-th job on j-th machine
+            e = np.zeros((k+2, n_machines+1))
+            # Init the tail of the i-th job on the j-th machine
+            q = np.zeros((k+2, n_machines+1))
+            # Init the earlie1st relative completion time for the k-th job
+            # in i-th position on j-th machine.
+            f = np.zeros((k+2, n_machines+1))
+            # For each position in which the job can be inserted...
+            for i in range(k + 1):
+                # Compute the earliest completion time, the tail, and the
+                # relative completion time
+                for j in range(n_machines):
+
+                    if i < k:
+                        e[i, j] = max(e[i, j-1], e[i-1, j]) + times[sequence[i], j]
+                    if i > 0:
+                        q[k-i, n_machines-j-1] = max(q[k-i, n_machines-j], q[k-i+1, n_machines-j-1]) + times[sequence[k-i], n_machines-j-1]
+                    f[i, j] = max(f[i, j-1], e[i-1, j]) + times[job, j]
+
+            # Partial makespans inserting job in i-th position
+            Mi = np.amax(f + q, axis=1)[:-1]
+            # Find the position where to insert k-th job that minimise the makespan
+            position = np.where(Mi == Mi.min())[0][0]
+            makespan = int(Mi[position])
+            # Insert the k-th job in the position that minimised the partial makespan
+            sequence.insert(position, job)
+            print("Selected: ", Mi,  sequence, makespan, utils.makespan(sequence, times))
+            print("--------------------")
+            #if k > 2: break
+
+        # Return the sequence and the makespan
+        print(jobs)
+        print(sequence, makespan)
+        return sequence, makespan
