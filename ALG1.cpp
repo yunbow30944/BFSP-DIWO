@@ -30,7 +30,7 @@ int calculate_v(const vector<int>& order, const vector<vector<int>>& processing_
         if(i==n) v += temp - finish_time[j]-processing_time[i][j]; // 更新阻塞和空闲时间之和
         finish_time[j] = temp; // 更新当前机器的完成时间
     }
-    return v; // 返回最后一台机器的完成时间
+    return v; 
 }
 int calculate(const vector<int>& order, const vector<vector<int>>& processing_time)
 {
@@ -67,7 +67,7 @@ vector<int> NEH_PI(const int lambda, const int n, vector<int>& Best_Sequence, co
             vector<int>temp_order=order;
             temp_order.insert(temp_order.begin() + j, indice); // 将组件插入到位置 j
             int makespan = calculate(temp_order, processing_time); // 计算插入后的处理时间
-            cout<<"m:"<<makespan<<endl;
+    
             if(makespan < bestmakespan) // 更新最优顺序
             {
                 index=j;
