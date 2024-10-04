@@ -170,7 +170,7 @@ int main()
         cin >> processing_time[i][j]; // 输入处理时间
         total_processing_time[i] += processing_time[i][j]; // 更新总处理时间
     }
-    // 按总处理时间降序排序组件索引
+    // 按总处理时间升序排序组件索引
     sort(indice.begin() + 1, indice.end(), [&total_processing_time](int a, int b){
         return total_processing_time[a] < total_processing_time[b];
     });
