@@ -180,9 +180,6 @@ int main()
     // }
     // 初始化最佳顺序
     vector<int> Best_sequence = Population_Initialization(lambda, 1, processing_time, indice);
-    for(auto e:Best_sequence) {
-        cout<<e<<" ";
-    }
     for(int i = 2; i <= x; ++i) // 生成 x 种顺序并选择最佳
     {
         vector<int> sequence = Population_Initialization(lambda, i, processing_time, indice);
