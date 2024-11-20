@@ -11,6 +11,8 @@ using namespace std;
 // NEH_PI 算法来优化顺序
 vector<int> NEH_PI(const int lambda, const int n, vector<int>& Best_Sequence, const vector<vector<int>>& processing_time)
 {
+   // cout<<n<<lambda<<endl;
+   // std::cout << "Maximum size of a std::vector<int>: " << std::vector<int>().max_size() << std::endl;
     vector<int> order(n-lambda+1); // 当前顺序
 
     copy(Best_Sequence.begin()+1, Best_Sequence.begin() + n-lambda+1, order.begin()+1);
@@ -38,7 +40,7 @@ vector<int> NEH_PI(const int lambda, const int n, vector<int>& Best_Sequence, co
 }
 
 // 初始化种群，生成一个初始的优良序列，需修改
-vector<int> Population_Initialization(const int lambda, const int k, const vector<vector<int>> processing_time, vector<int> indice)
+vector<int> Population_Initialization(const int lambda, const int k, const vector<vector<int>>& processing_time, vector<int> indice)
 {
     int n = indice.size() - 1; // 组件数量
     vector<int> order(2, 0); // 初始化顺序

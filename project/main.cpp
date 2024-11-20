@@ -9,9 +9,8 @@
 int main() {
     // 设置全局数据
     globalData.setData();
-
     // 调用 ALG1 和 ALG2
-    ALG1(1000);
+    ALG1(1000,10);
     //ALG2();
 
     return 0;

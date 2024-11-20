@@ -9,6 +9,9 @@ void GlobalData::setData() {
     std::cout << "The number of machines: ";
     std::cin >> m;
     processing_time.assign(n + 1, std::vector<int>(m + 1, 0));
+    total_processing_time.assign(n + 1, 0);
+    indice.assign(n + 1, 0);
+    iota(indice.begin(), indice.end(), 0); // 初始化组件索引0~n-1
     printf("\nThe processing time of each component on different machines:\n");
     for(int i = 1; i <= n; ++i)
         for(int j = 1; j <= m; ++j){

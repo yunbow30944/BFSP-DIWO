@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include<algorithm>
+#include<numeric>
 using namespace std;
 class GlobalData {
 public:
@@ -21,9 +22,7 @@ public:
     vector<vector<int>>POP;//种群
 
     // 构造函数
-    GlobalData() : n(0), m(0), total_processing_time(n + 1, 0), indice(n + 1, 0) {
-        iota(indice.begin(), indice.end(), 0); // 初始化组件索引0~n-1
-    }
+    GlobalData() : n(0), m(0) {}
     ~GlobalData() {}
     // 设置函数
     void setData();

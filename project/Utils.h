@@ -8,7 +8,6 @@
 
 #include <vector>
 #include <iostream>
-#include<numeric>
 #include<climits>
 #include<random>
 #include <vector>
