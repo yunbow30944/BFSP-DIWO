@@ -1,0 +1,35 @@
+//
+// Created by DELL on 24-11-20.
+//
+
+#ifndef GLOBALDATA_H
+#define GLOBALDATA_H
+
+#include <vector>
+#include <iostream>
+#include<algorithm>
+using namespace std;
+class GlobalData {
+public:
+    // 全局变量
+    int n; // 组件数量
+    int m; // 机器数量
+    vector<vector<int>> processing_time; // 处理时间矩阵
+    vector<int> total_processing_time; // 每个组件的总处理时间
+    vector<int> indice; // 组件索引
+
+    vector<vector<int>>POP;//种群
+
+    // 构造函数
+    GlobalData() : n(0), m(0), total_processing_time(n + 1, 0), indice(n + 1, 0) {
+        iota(indice.begin(), indice.end(), 0); // 初始化组件索引0~n-1
+    }
+    ~GlobalData() {}
+    // 设置函数
+    void setData();
+};
+
+// 全局数据对象
+extern GlobalData globalData;
+
+#endif //GLOBALDATA_H
