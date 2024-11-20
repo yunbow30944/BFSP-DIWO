@@ -48,6 +48,7 @@ namespace ALG2 {
         vector<int> order(order_original.size() + 1, 0); // 为了方便计算，将order的下标从1开始
         for (int i = 1; i < order.size(); ++i)
             order[i] = order_original[i - 1];
+		//？？？
         int n = order.size() - 1; // 组件数量
         int m = processing_time[0].size() - 1; // 机器数量
         vector<int> finish_time(m + 1, 0); // 每台机器的完成时间
