@@ -10,20 +10,26 @@
 #include<algorithm>
 #include<numeric>
 using namespace std;
+
 class GlobalData {
 public:
     // 全局变量
     int n; // 组件数量
     int m; // 机器数量
-    vector<vector<int>> processing_time; // 处理时间矩阵
+    vector<vector<int> > processing_time; // 处理时间矩阵
     vector<int> total_processing_time; // 每个组件的总处理时间
     vector<int> indice; // 组件索引
 
-    vector<vector<int>>POP;//种群
-
+    vector<vector<int> > POP; //种群
+    vector<vector<int> > POP2;
+    int k_max; //迭代总次数
+    int P_max;//10
     // 构造函数
-    GlobalData() : n(0), m(0) {}
-    ~GlobalData() {}
+    GlobalData() : n(0), m(0), k_max(1), P_max(1) {
+    }
+
+    ~GlobalData() = default;
+
     // 设置函数
     void setData();
 };

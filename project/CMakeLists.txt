@@ -8,9 +8,11 @@ include_directories(.)
 add_executable(project
     Alg1.cpp
     Alg1.h
-    Alg2.hpp
+    Alg2.cpp
+    Alg2.h
     GlobalData.cpp
     GlobalData.h
     main.cpp
     Utils.cpp
-    Utils.h)
+    Utils.h
+    )

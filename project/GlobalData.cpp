@@ -3,6 +3,7 @@
 //
 #include "GlobalData.h"
 using namespace std;
+
 void GlobalData::setData() {
     std::cout << "The number of components: ";
     std::cin >> n;
@@ -13,14 +14,15 @@ void GlobalData::setData() {
     indice.assign(n + 1, 0);
     iota(indice.begin(), indice.end(), 0); // 初始化组件索引0~n-1
     printf("\nThe processing time of each component on different machines:\n");
-    for(int i = 1; i <= n; ++i)
-        for(int j = 1; j <= m; ++j){
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= m; ++j) {
             cin >> processing_time[i][j]; // 输入处理时间
             total_processing_time[i] += processing_time[i][j]; // 更新总处理时间
         }
-    sort(indice.begin() + 1, indice.end(), [this](int a, int b){
-    return total_processing_time[a] < total_processing_time[b];
-});
+    sort(indice.begin() + 1, indice.end(), [this](int a, int b) {
+        return total_processing_time[a] < total_processing_time[b];
+    });
 }
+
 // 定义全局数据对象
 GlobalData globalData;
