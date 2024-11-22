@@ -5,18 +5,19 @@
 #include "Alg1.h"
 #include "Alg2.h"
 #include "Alg3.h"
+#include "Alg4.h"
 #include "Utils.h"
 
 
 int main() {
     // 设置全局数据
     globalData.setData();
-    // 调用 ALG1 和 ALG2
-    ALG1(500, 10);
+    // 调用 ALG1
+    ALG1(10, 10);
 
     for (int k = 1; k <= globalData.k_max; k++) {
         vector<int> s = reproduction(0, 7);
-
+        globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {
             spatialDispersal(k, s, 0, 5);
         }
@@ -51,7 +52,22 @@ int main() {
             }
             cout<<endl;
         }
+        competitiveExclusion(globalData.POP,globalData.POP2,globalData.P_max);
+        cout << "=================POP AFTER ALG4:====================" << endl;
+        for (const auto &v: globalData.POP) {
+            for (auto e: v) {
+                cout << e << " ";
+            }
+            cout << endl;
+        }
+        cout << "======================================================" << endl;
     }
+
+    cout<<"Best_seq_all:";
+    for (const auto &v: globalData.best_seq) {
+        cout<<v<<" ";
+    }
+    cout<<endl;
 
     return 0;
 }

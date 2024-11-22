@@ -12,6 +12,8 @@ add_executable(project
     Alg2.h
     Alg3.cpp
     Alg3.h
+    Alg4.cpp
+    Alg4.h
     GlobalData.cpp
     GlobalData.h
     main.cpp

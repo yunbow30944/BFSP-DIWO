@@ -28,6 +28,8 @@ public:
     static void sort_by_tot_processing_time(vector<int> &pi_R, const vector<int> &total_processing_time);
 
     static vector<int> findBestpi(const vector<vector<int> > &pop);
+
+    static void sortAllpi(vector<vector<int> > &pop) ;
 };
 
 #endif //UTILS_H

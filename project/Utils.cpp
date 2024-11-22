@@ -90,3 +90,9 @@ vector<int> Utils::findBestpi(const vector<vector<int> > &pop) {
     }
     return pi_best;
 }
+void Utils::sortAllpi(vector<vector<int> > &pop) {
+    // 使用 Lambda 表达式进行排序
+    std::sort(pop.begin(), pop.end(), [](const std::vector<int> &a, const std::vector<int> &b) {
+        return a[0] < b[0];
+    });
+}

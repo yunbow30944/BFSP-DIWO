@@ -94,11 +94,7 @@ vector<int> reproduction(const int S_min, const int S_max) {
     vector<vector<int> > &pop = globalData.POP;
     const vector<vector<int> > processing_time = globalData.processing_time;
     vector<int> s;
-    // 使用 Lambda 表达式进行排序
-    std::sort(pop.begin(), pop.end(), [](const std::vector<int> &a, const std::vector<int> &b) {
-        return a[0] < b[0];
-    });
-
+    Utils::sortAllpi(pop);
     for (const auto &pi_index: pop) {
         int S_index = ALG2::calculate_S(pi_index[0], pop[pop.size() - 1][0], pop[0][0], S_max, S_min);
         s.push_back(S_index);

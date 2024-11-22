@@ -29,7 +29,7 @@ public:
     int P_max;//10
     double pls;//概率
     // 构造函数
-    GlobalData() : n(0), m(0), k_max(3), P_max(10),pls(0.15) {
+    GlobalData() : n(0), m(0), k_max(50), P_max(10),pls(0.15) {
     }
 
     ~GlobalData() = default;
