@@ -78,3 +78,15 @@ void Utils::sort_by_tot_processing_time(vector<int> &pi_R, const vector<int> &to
         return total_processing_time[a] < total_processing_time[b];
     });
 }
+
+vector<int> Utils::findBestpi(const vector<vector<int> > &pop) {
+    vector<int> pi_best;
+    int best=INT_MAX;
+    for(int i = 0; i < pop.size(); ++i) {
+        if(pop[i][0]<best) {
+            best = pop[i][0];
+            pi_best=pop[i];
+        }
+    }
+    return pi_best;
+}

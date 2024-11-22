@@ -99,6 +99,11 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
         } while (!unique);
         globalData.POP.push_back(seq); // 加入POP
     }
+
+    //设置当前最优解
+    globalData.best_seq=Utils::findBestpi(globalData.POP);
+    globalData.bestmakespan=globalData.best_seq[0];
+
     //测试POP
     cout<<"=================POP AFTER ALG1:===================="<<endl;
     for (const auto &ele: globalData.POP) {
@@ -107,6 +112,6 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
         }
         cout << endl;
     }
-    cout<<"==============================================="<<endl;
+    cout<<"====================================================="<<endl;
     return globalData.POP;
 }

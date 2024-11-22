@@ -10,9 +10,11 @@ add_executable(project
     Alg1.h
     Alg2.cpp
     Alg2.h
+    Alg3.cpp
+    Alg3.h
     GlobalData.cpp
     GlobalData.h
     main.cpp
     Utils.cpp
     Utils.h
-    )
+)

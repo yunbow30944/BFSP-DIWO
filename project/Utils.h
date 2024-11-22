@@ -26,6 +26,8 @@ public:
     static bool is_unique(const vector<int> &seq, const vector<vector<int> > &POP);
 
     static void sort_by_tot_processing_time(vector<int> &pi_R, const vector<int> &total_processing_time);
+
+    static vector<int> findBestpi(const vector<vector<int> > &pop);
 };
 
 #endif //UTILS_H

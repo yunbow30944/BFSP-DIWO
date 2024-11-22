@@ -22,10 +22,14 @@ public:
 
     vector<vector<int> > POP; //种群
     vector<vector<int> > POP2;
+    vector<int>best_seq;
+    int bestmakespan;
+
     int k_max; //迭代总次数
     int P_max;//10
+    double pls;//概率
     // 构造函数
-    GlobalData() : n(0), m(0), k_max(1), P_max(1) {
+    GlobalData() : n(0), m(0), k_max(3), P_max(10),pls(0.15) {
     }
 
     ~GlobalData() = default;

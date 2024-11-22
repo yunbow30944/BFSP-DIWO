@@ -159,5 +159,10 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
             globalData.POP2.push_back(pi_new);
         }
     }
+    vector<int> bestseq=Utils::findBestpi(globalData.POP2);
+    if(bestseq[0]<globalData.bestmakespan) {
+        globalData.bestmakespan = bestseq[0];
+        globalData.best_seq = bestseq;
+    }
     return globalData.POP2;
 }
