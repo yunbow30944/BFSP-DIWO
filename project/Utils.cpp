@@ -5,29 +5,66 @@
 using namespace std;
 
 
-//计算完工时间
+// //计算完工时间
+// int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {
+//     int n = order.size() - 1; // 组件数量
+//     int m = processing_time[0].size()-1; // 机器数量
+//     vector<int> finish_time(m + 1, 0); // 每台机器的完成时间
+//     for (int i = 1; i <= n; ++i) // 遍历每个组件
+//         for (int j = 1; j <= m; ++j) // 遍历每台机器
+//         {
+//             if (i == 1)
+//                 finish_time[j] = finish_time[j - 1] + processing_time[order[i]][j]; // 第一个组件
+//             else if (j != m)
+//                 finish_time[j] = max(finish_time[j - 1], finish_time[j + 1] - processing_time[order[i - 1]][j + 1]) +
+//                                  processing_time[order[i]][j]; // 中间机器
+//             else
+//                 finish_time[j] = max(finish_time[j - 1], finish_time[j]) + processing_time[order[i]][j]; // 最后一台机器
+//         }
+//     return finish_time[m]; // 返回最后一台机器的完成时间
+// }
 int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {
-    int n = order.size() - 1; // 组件数量
-    int m = processing_time[0].size() - 1; // 机器数量
-    vector<int> finish_time(m + 1, 0); // 每台机器的完成时间
-    for (int i = 1; i <= n; ++i) // 遍历每个组件
-        for (int j = 1; j <= m; ++j) // 遍历每台机器
-        {
-            if (i == 1)
-                finish_time[j] = finish_time[j - 1] + processing_time[order[i]][j]; // 第一个组件
-            else if (j != m)
-                finish_time[j] = max(finish_time[j - 1], finish_time[j + 1] - processing_time[order[i - 1]][j + 1]) +
-                                 processing_time[order[i]][j]; // 中间机器
-            else
-                finish_time[j] = max(finish_time[j - 1], finish_time[j]) + processing_time[order[i]][j]; // 最后一台机器
+    int n = order.size() - 1; // 任务数量 (job count)
+    int m = processing_time[0].size() - 1; // 机器数量 (machine count)
+
+    // 定义 dπ(i,j)，即公式中的开始时间矩阵
+    vector<vector<int> > d(n + 1, vector<int>(m + 1, 0));
+
+    // 按照图片中的公式逐步计算
+    // 初始化公式 (1)
+    d[1][0] = 0;
+
+    // 计算第一行 (组件 1)，公式 (2)
+    for (int j = 1; j <= m - 1; ++j) {
+        d[1][j] = d[1][j - 1] + processing_time[order[1]][j];
+    }
+
+    // 计算剩余任务的时间矩阵
+    for (int i = 2; i <= n; ++i) {
+        // 遍历每个任务 (从第2个任务开始)
+        // 初始化公式 (3)
+        d[i][0] = d[i-1][1];
+
+        // 公式 (4)
+        for (int j = 1; j <= m - 1; ++j) {
+            d[i][j] = max(d[i][j - 1] + processing_time[order[i]][j],
+                                 d[i-1][j + 1]);
         }
-    return finish_time[m]; // 返回最后一台机器的完成时间
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        // 公式 (5)
+        d[i][m] = d[i][m - 1] + processing_time[order[i]][m];
+    }
+    //cout<<"OK";
+    // 返回最后一个任务在最后一台机器的完成时间 (Cmax)
+    return d[n][m];
 }
 
-// 计算阻塞和空闲时间之和，可优化
+// 计算阻塞和空闲时间之和，可优化,需修改
 int Utils::calculate_v(const vector<int> &order, const vector<vector<int> > &processing_time) {
     int n = order.size() - 1; // 组件数量
-    int m = processing_time[0].size() - 1; // 机器数量
+    int m = processing_time[0].size(); // 机器数量
     vector<int> finish_time(m + 1, 0); // 每台机器的完成时间
     int v = 0;
     for (int i = 1; i <= n; ++i) // 遍历每个组件
@@ -81,15 +118,16 @@ void Utils::sort_by_tot_processing_time(vector<int> &pi_R, const vector<int> &to
 
 vector<int> Utils::findBestpi(const vector<vector<int> > &pop) {
     vector<int> pi_best;
-    int best=INT_MAX;
-    for(int i = 0; i < pop.size(); ++i) {
-        if(pop[i][0]<best) {
+    int best = INT_MAX;
+    for (int i = 0; i < pop.size(); ++i) {
+        if (pop[i][0] < best) {
             best = pop[i][0];
-            pi_best=pop[i];
+            pi_best = pop[i];
         }
     }
     return pi_best;
 }
+
 void Utils::sortAllpi(vector<vector<int> > &pop) {
     // 使用 Lambda 表达式进行排序
     std::sort(pop.begin(), pop.end(), [](const std::vector<int> &a, const std::vector<int> &b) {

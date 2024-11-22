@@ -21,14 +21,14 @@ int main() {
         for (int i = 1; i <= globalData.P_max; i++) {
             spatialDispersal(k, s, 0, 5);
         }
-        cout << "=================POP2 AFTER ALG2:====================" << endl;
-        for (const auto &v: globalData.POP2) {
-            for (auto e: v) {
-                cout << e << " ";
-            }
-            cout << endl;
-        }
-        cout << "======================================================" << endl;
+        // cout << "=================POP2 AFTER ALG2:====================" << endl;
+        // for (const auto &v: globalData.POP2) {
+        //     for (auto e: v) {
+        //         cout << e << " ";
+        //     }
+        //     cout << endl;
+        // }
+        // cout << "======================================================" << endl;
 
         cout<<"Best_now:"<<endl;
         for (const auto &v: globalData.best_seq) {

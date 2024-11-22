@@ -32,8 +32,9 @@ vector<int> NEH_PI(const int lambda, const int n, vector<int> &Best_Sequence,
             }
         }
         order.insert(order.begin() + index, indice); // 将组件插入到位置 j
-        order[0] = bestmakespan;
+
     }
+    order[0] = Utils::calculate(order, processing_time);
     return order; // 返回最优顺序
 }
 
@@ -105,13 +106,13 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
     globalData.bestmakespan=globalData.best_seq[0];
 
     //测试POP
-    cout<<"=================POP AFTER ALG1:===================="<<endl;
-    for (const auto &ele: globalData.POP) {
-        for (auto e: ele) {
-            cout << e << " ";
-        }
-        cout << endl;
-    }
-    cout<<"====================================================="<<endl;
+    // cout<<"=================POP AFTER ALG1:===================="<<endl;
+    // for (const auto &ele: globalData.POP) {
+    //     for (auto e: ele) {
+    //         cout << e << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout<<"====================================================="<<endl;
     return globalData.POP;
 }
