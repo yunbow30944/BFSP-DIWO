@@ -66,7 +66,7 @@ namespace ALG2 {
 
     double Sigma::calculate_sigma_k(int k, double sigma_min, double sigma_max) {
         //return (1-(static_cast<double>(clock()-start))/start)*(sigma_max-sigma_min)+sigma_min;
-        return sigma_min + (1 - (k - 1) / (globalData.k_max - 1+epsilon)) * (sigma_max - sigma_min);
+        return sigma_min + (1 - (k - 1) / (globalData.k_max - 1 + epsilon)) * (sigma_max - sigma_min);
     }
 
     void Sigma::calculate_sigma_i_k() {
@@ -84,7 +84,7 @@ namespace ALG2 {
             if (i < pop.size() / 2) {
                 sigma_i_k.push_back(sigma_k);
             } else {
-                sigma_i_k.push_back(sigma_k * (1 + 0.5 * ((pop[i][0] - C_median) / (C_worst - C_median+epsilon))));
+                sigma_i_k.push_back(sigma_k * (1 + 0.5 * ((pop[i][0] - C_median) / (C_worst - C_median + epsilon))));
             }
         }
     }
@@ -155,8 +155,8 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
             globalData.POP2.push_back(pi_new);
         }
     }
-    vector<int> bestseq=Utils::findBestpi(globalData.POP2);
-    if(bestseq[0]<globalData.bestmakespan) {
+    vector<int> bestseq = Utils::findBestpi(globalData.POP2);
+    if (bestseq[0] < globalData.bestmakespan) {
         globalData.bestmakespan = bestseq[0];
         globalData.best_seq = bestseq;
     }

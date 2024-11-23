@@ -19,7 +19,8 @@ public:
     // 工具函数示例：打印二维向量
     static int calculate(const vector<int> &order, const vector<vector<int> > &processing_time);
 
-    static int calculate_v(const vector<int> &order, const vector<vector<int> > &processing_time);
+    static vector<vector<int> > calculate_v(int &v, int i, const vector<int> &order, vector<vector<int> > d,
+                                            const vector<vector<int> > &processing_time);
 
     static vector<int> random_init(int n);
 
@@ -29,7 +30,7 @@ public:
 
     static vector<int> findBestpi(const vector<vector<int> > &pop);
 
-    static void sortAllpi(vector<vector<int> > &pop) ;
+    static void sortAllpi(vector<vector<int> > &pop);
 };
 
 #endif //UTILS_H

@@ -30,7 +30,7 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
                 vector<int> pi_double_prime = pi_prime;
                 pi_double_prime.insert(pi_double_prime.begin() + i, pi_r[j]);
 
-                int cost = Utils::calculate(pi_double_prime,globalData.processing_time);//可加速
+                int cost = Utils::calculate(pi_double_prime, globalData.processing_time); //可加速
                 if (cost < bestfit) {
                     bestfit = cost;
                     keypos = i;
@@ -41,11 +41,11 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
             if (pi[0] > bestfit) {
                 pi_prime.insert(pi_prime.begin() + keypos, pi_r[j]);
                 pi = pi_prime;
-                pi[0]=bestfit;
+                pi[0] = bestfit;
                 //更新当前最佳
-                if(pi[0]<globalData.bestmakespan) {
+                if (pi[0] < globalData.bestmakespan) {
                     globalData.bestmakespan = pi[0];
-                    globalData.best_seq=pi;
+                    globalData.best_seq = pi;
                 }
                 cnt = 1;
             } else {
@@ -56,7 +56,8 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
         if (flag == 0) {
             //随机打乱
             vector<int> shuffled_pi_r = pi_r;
-            std::shuffle(shuffled_pi_r.begin() + 1, shuffled_pi_r.end(), std::default_random_engine(std::random_device{}()));//Fisher-yates??
+            std::shuffle(shuffled_pi_r.begin() + 1, shuffled_pi_r.end(),
+                         std::default_random_engine(std::random_device{}())); //Fisher-yates??
             pi_r = shuffled_pi_r;
             cnt = 1;
         }

@@ -30,11 +30,11 @@ int main() {
         // }
         // cout << "======================================================" << endl;
 
-        cout<<"Best_now:"<<endl;
+        cout << "Best_now:" << endl;
         for (const auto &v: globalData.best_seq) {
-            cout<<v<<" ";
+            cout << v << " ";
         }
-        cout<<endl;
+        cout << endl;
 
 
         for (int i = 0; i < globalData.POP2.size(); ++i) {
@@ -42,17 +42,17 @@ int main() {
             std::uniform_real_distribution<double> _rand(0, 1);
             double rand = _rand(e);
 
-            if(rand<globalData.pls) {
-                globalData.POP2[i]=SRLS(globalData.POP2[i],globalData.best_seq);
+            if (rand < globalData.pls) {
+                globalData.POP2[i] = SRLS(globalData.POP2[i], globalData.best_seq);
             }
 
-            cout<<"Best_now:"<<endl;
+            cout << "Best_now:" << endl;
             for (const auto &v: globalData.best_seq) {
-                cout<<v<<" ";
+                cout << v << " ";
             }
-            cout<<endl;
+            cout << endl;
         }
-        competitiveExclusion(globalData.POP,globalData.POP2,globalData.P_max);
+        competitiveExclusion(globalData.POP, globalData.POP2, globalData.P_max);
         cout << "=================POP AFTER ALG4:====================" << endl;
         for (const auto &v: globalData.POP) {
             for (auto e: v) {
@@ -63,11 +63,11 @@ int main() {
         cout << "======================================================" << endl;
     }
 
-    cout<<"Best_seq_all:";
+    cout << "Best_seq_all:";
     for (const auto &v: globalData.best_seq) {
-        cout<<v<<" ";
+        cout << v << " ";
     }
-    cout<<endl;
+    cout << endl;
 
     return 0;
 }

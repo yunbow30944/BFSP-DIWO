@@ -6,14 +6,6 @@
 #include"GlobalData.h"
 using namespace std;
 
-//int distance(const std::vector<int>& a, const std::vector<int>& b) {
-//    // 示例：计算简单的差值和
-//    int dist = 0;
-//    for (size_t i = 0; i < a.size(); ++i) {
-//        dist += abs(a[i] - b[i]);
-//    }
-//    return dist;
-//}
 
 vector<vector<int> > competitiveExclusion(vector<vector<int> > &POP, vector<vector<int> > &POP_prime, const int P_max) {
     vector<vector<int> > POP_double_prime;

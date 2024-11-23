@@ -5,24 +5,7 @@
 using namespace std;
 
 
-// //计算完工时间
-// int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {
-//     int n = order.size() - 1; // 组件数量
-//     int m = processing_time[0].size()-1; // 机器数量
-//     vector<int> finish_time(m + 1, 0); // 每台机器的完成时间
-//     for (int i = 1; i <= n; ++i) // 遍历每个组件
-//         for (int j = 1; j <= m; ++j) // 遍历每台机器
-//         {
-//             if (i == 1)
-//                 finish_time[j] = finish_time[j - 1] + processing_time[order[i]][j]; // 第一个组件
-//             else if (j != m)
-//                 finish_time[j] = max(finish_time[j - 1], finish_time[j + 1] - processing_time[order[i - 1]][j + 1]) +
-//                                  processing_time[order[i]][j]; // 中间机器
-//             else
-//                 finish_time[j] = max(finish_time[j - 1], finish_time[j]) + processing_time[order[i]][j]; // 最后一台机器
-//         }
-//     return finish_time[m]; // 返回最后一台机器的完成时间
-// }
+//计算完工时间
 int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {
     int n = order.size() - 1; // 任务数量 (job count)
     int m = processing_time[0].size() - 1; // 机器数量 (machine count)
@@ -35,7 +18,7 @@ int Utils::calculate(const vector<int> &order, const vector<vector<int> > &proce
     d[1][0] = 0;
 
     // 计算第一行 (组件 1)，公式 (2)
-    for (int j = 1; j <= m - 1; ++j) {
+    for (int j = 1; j <= m; ++j) {
         d[1][j] = d[1][j - 1] + processing_time[order[1]][j];
     }
 
@@ -43,46 +26,35 @@ int Utils::calculate(const vector<int> &order, const vector<vector<int> > &proce
     for (int i = 2; i <= n; ++i) {
         // 遍历每个任务 (从第2个任务开始)
         // 初始化公式 (3)
-        d[i][0] = d[i-1][1];
+        d[i][0] = d[i - 1][1];
 
         // 公式 (4)
         for (int j = 1; j <= m - 1; ++j) {
             d[i][j] = max(d[i][j - 1] + processing_time[order[i]][j],
-                                 d[i-1][j + 1]);
+                          d[i - 1][j + 1]);
         }
-    }
-
-    for (int i = 1; i <= n; ++i) {
-        // 公式 (5)
         d[i][m] = d[i][m - 1] + processing_time[order[i]][m];
     }
-    //cout<<"OK";
+
     // 返回最后一个任务在最后一台机器的完成时间 (Cmax)
     return d[n][m];
 }
 
 // 计算阻塞和空闲时间之和，可优化,需修改
-int Utils::calculate_v(const vector<int> &order, const vector<vector<int> > &processing_time) {
-    int n = order.size() - 1; // 组件数量
-    int m = processing_time[0].size(); // 机器数量
-    vector<int> finish_time(m + 1, 0); // 每台机器的完成时间
-    int v = 0;
-    for (int i = 1; i <= n; ++i) // 遍历每个组件
-        for (int j = 1; j <= m; ++j) // 遍历每台机器
-        {
-            int temp; // 当前处理时间
-            if (i == 1)
-                temp = finish_time[j - 1] + processing_time[order[i]][j]; // 第一个组件
-            else if (j != m)
-                temp = max(finish_time[j - 1], finish_time[j + 1] - processing_time[order[i - 1]][j + 1]) +
-                       processing_time[order[i]][j]; // 中间机器
-            else
-                temp = max(finish_time[j - 1], finish_time[j]) + processing_time[order[i]][j]; // 最后一台机器
+vector<vector<int> > Utils::calculate_v(int &v, const int i, const vector<int> &order, vector<vector<int> > d,
+                                        const vector<vector<int> > &processing_time) {
+    int m = processing_time[0].size() - 1; // 机器数量 (machine count)
 
-            if (i == n) v += temp - finish_time[j] - processing_time[i][j]; // 更新阻塞和空闲时间之和
-            finish_time[j] = temp; // 更新当前机器的完成时间
-        }
-    return v;
+    d[i][0] = d[i - 1][1];
+
+    for (int j = 1; j <= m - 1; ++j) {
+        d[i][j] = max(d[i][j - 1] + processing_time[order[i]][j],
+                      d[i - 1][j + 1]);
+        v += d[i][j] - d[i - 1][j] - processing_time[order[i]][j];
+    }
+    d[i][m] = d[i][m - 1] + processing_time[order[i]][m];
+    v += d[i][m] - d[i - 1][m] - processing_time[order[i]][m];
+    return d;
 }
 
 //随机序列生成

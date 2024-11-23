@@ -8,5 +8,6 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+
 vector<vector<int> > competitiveExclusion(vector<vector<int> > &POP, vector<vector<int> > &POP_prime, int P_max);
 #endif //ALG4_H
