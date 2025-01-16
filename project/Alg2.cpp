@@ -60,7 +60,7 @@ namespace ALG2 {
         std::default_random_engine e(time(0));
         std::normal_distribution<double> _rand(0, sigma.sigma_i_k[i]);
         d = static_cast<int>(fabs(_rand(e)));
-        return justify_d(d, sigma.sigma_i_k.size(), sigma_min, sigma_max);
+        return justify_d(d, globalData.n, sigma_min, sigma_max);//?
     }
 
 
@@ -81,7 +81,7 @@ namespace ALG2 {
         }
 
         for (int i = 0; i < pop.size(); i++) {
-            if (i < pop.size() / 2) {
+            if (i < pop.size() / 2) {//TODO: verify this judgement
                 sigma_i_k.push_back(sigma_k);
             } else {
                 sigma_i_k.push_back(sigma_k * (1 + 0.5 * ((pop[i][0] - C_median) / (C_worst - C_median + epsilon))));
@@ -94,7 +94,6 @@ vector<int> reproduction(const int S_min, const int S_max) {
     vector<vector<int> > &pop = globalData.POP;
     const vector<vector<int> > processing_time = globalData.processing_time;
     vector<int> s;
-    Utils::sortAllpi(pop);
     for (const auto &pi_index: pop) {
         int S_index = ALG2::calculate_S(pi_index[0], pop[pop.size() - 1][0], pop[0][0], S_max, S_min);
         s.push_back(S_index);
@@ -108,7 +107,7 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
 
     ALG2::Sigma sig(pop); //构造sig实例对象
 
-    sig.sigma_k = sig.calculate_sigma_k(k, sigma_min, sigma_max); //先用迭代次数吧
+    sig.sigma_k = sig.calculate_sigma_k(k, sigma_min, sigma_max); //TODO:substitute k
 
     sig.calculate_sigma_i_k();
 
@@ -124,9 +123,9 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
                 pi_R.push_back(pi_new[position]);
                 pi_new.erase(pi_new.begin() + position);
             }
-            Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);
+            Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//TODO: 升序真的好吗？
 
-            for (int l = 0; l < d; l++) {
+            for (int l = 0; l < d; l++) {//TODO:optimize here
                 int best_time = INT_MAX;
                 vector<int> best_pi;
                 //对不同位置插入pi_R中的元素

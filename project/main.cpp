@@ -15,7 +15,7 @@ int main() {
     // 调用 ALG1
     ALG1(10, 10);
 
-    for (int k = 1; k <= globalData.k_max; k++) {
+    for (int k = 1; k <= globalData.k_max; k++) {//TODO:substitute k
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {

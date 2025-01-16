@@ -10,8 +10,8 @@ using namespace std;
 
 // NEH_PI 算法来优化顺序
 vector<int> NEH_PI(const int lambda, const int n, vector<int> &Best_Sequence,
-                   const vector<vector<int> > &processing_time) {
-    vector<int> order(n - lambda + 1); // 当前顺序，小心范围
+                   const vector<vector<int> > &processing_time) {//TODO：optimize the complexity of insertion phase
+    vector<int> order(n - lambda + 1); // 当前顺序，注意范围
 
     copy(Best_Sequence.begin() + 1, Best_Sequence.begin() + n - lambda + 1, order.begin() + 1);
 
@@ -115,18 +115,21 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
         globalData.POP.push_back(seq); // 加入POP
     }
 
+    //排序
+    Utils::sortAllpi(globalData.POP);
+
     //设置当前最优解
-    globalData.best_seq = Utils::findBestpi(globalData.POP);
+    globalData.best_seq = globalData.POP[0];
     globalData.bestmakespan = globalData.best_seq[0];
 
     //测试POP
-    // cout<<"=================POP AFTER ALG1:===================="<<endl;
-    // for (const auto &ele: globalData.POP) {
-    //     for (auto e: ele) {
-    //         cout << e << " ";
-    //     }
-    //     cout << endl;
-    // }
-    // cout<<"====================================================="<<endl;
+    cout<<"=================POP AFTER ALG1:===================="<<endl;
+    for (const auto &ele: globalData.POP) {
+        for (auto e: ele) {
+            cout << e << " ";
+        }
+        cout << endl;
+    }
+    cout<<"====================================================="<<endl;
     return globalData.POP;
 }

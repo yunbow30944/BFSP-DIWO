@@ -7,8 +7,9 @@
 #include"GlobalData.h"
 using namespace std;
 
-vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
-    int n = pi_r.size() - 1; // 序列长度
+vector<int> SRLS(vector<int> pi, vector<int> pi_r) {//TODO: optimize
+    int n = globalData.n;
+    //cout<<"n = "<<n<<endl;
     int cnt = 1, j = 0, flag = 0;
 
     do {
@@ -30,7 +31,7 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
                 vector<int> pi_double_prime = pi_prime;
                 pi_double_prime.insert(pi_double_prime.begin() + i, pi_r[j]);
 
-                int cost = Utils::calculate(pi_double_prime, globalData.processing_time); //可加速
+                int cost = Utils::calculate(pi_double_prime, globalData.processing_time);
                 if (cost < bestfit) {
                     bestfit = cost;
                     keypos = i;
@@ -57,7 +58,7 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
             //随机打乱
             vector<int> shuffled_pi_r = pi_r;
             std::shuffle(shuffled_pi_r.begin() + 1, shuffled_pi_r.end(),
-                         std::default_random_engine(std::random_device{}())); //Fisher-yates??
+                         std::default_random_engine(std::random_device{}())); //TODO:Fisher-yates?
             pi_r = shuffled_pi_r;
             cnt = 1;
         }

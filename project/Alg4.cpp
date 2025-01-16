@@ -19,11 +19,11 @@ vector<vector<int> > competitiveExclusion(vector<vector<int> > &POP, vector<vect
 
     POP.clear();
 
-    int j = 2;
+    int j = 1;
     POP.push_back(POP_double_prime[0]);
 
     // 竞争排除
-    while (POP.size() < P_max && j <= POP_double_prime.size()) {
+    while (POP.size() < P_max && j < POP_double_prime.size()) {
         bool flag = false;
         if (Utils::is_unique(POP_double_prime[j], POP)) {
             flag = true;
