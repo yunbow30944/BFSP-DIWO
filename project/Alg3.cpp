@@ -7,7 +7,8 @@
 #include"GlobalData.h"
 using namespace std;
 
-vector<int> SRLS(vector<int> pi, vector<int> pi_r) {//TODO: optimize
+vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
+    //TODO: optimize
     int n = globalData.n;
     //cout<<"n = "<<n<<endl;
     int cnt = 1, j = 0, flag = 0;
@@ -57,8 +58,8 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {//TODO: optimize
         if (flag == 0) {
             //随机打乱
             vector<int> shuffled_pi_r = pi_r;
-            std::shuffle(shuffled_pi_r.begin() + 1, shuffled_pi_r.end(),
-                         std::default_random_engine(std::random_device{}())); //TODO:Fisher-yates?
+            Utils::shuffleArray(shuffled_pi_r); //Fisher-yates
+
             pi_r = shuffled_pi_r;
             cnt = 1;
         }

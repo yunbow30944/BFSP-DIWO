@@ -31,6 +31,8 @@ public:
     static vector<int> findBestpi(const vector<vector<int> > &pop);
 
     static void sortAllpi(vector<vector<int> > &pop);
+
+    static void shuffleArray(vector<int> &array);
 };
 
 #endif //UTILS_H

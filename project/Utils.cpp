@@ -2,6 +2,8 @@
 // Created by DELL on 24-11-20.
 //
 #include "Utils.h"
+
+#include <chrono>
 using namespace std;
 
 
@@ -105,4 +107,20 @@ void Utils::sortAllpi(vector<vector<int> > &pop) {
     std::sort(pop.begin(), pop.end(), [](const std::vector<int> &a, const std::vector<int> &b) {
         return a[0] < b[0];
     });
+}
+
+void Utils::shuffleArray(std::vector<int> &array) {
+    //Fisher–Yates shuffle method
+    // 使用当前时间作为随机数生成器的种子
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine rng(seed);
+
+    for (int i = array.size() - 1; i > 0; --i) {
+        // 生成一个 [1, i] 之间的随机整数
+        std::uniform_int_distribution<int> dist(1, i);
+        int j = dist(rng);
+
+        // 交换 array[i] 和 array[j]
+        std::swap(array[i], array[j]);
+    }
 }
