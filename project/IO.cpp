@@ -32,9 +32,9 @@ namespace IO {
         // 输出读取的数据
         std::cout << "The number of jobs: " << n << std::endl;
         std::cout << "The number of machines: " << m << std::endl;
-        std::cout << "Initial seed: " << std::endl;
-        std::cout << "Upper bound: " << std::endl;
-        std::cout << "Lower bound: " << std::endl;
+        std::cout << "Initial seed: " << initial_seed << std::endl;
+        std::cout << "Upper bound: " << upper_bound << std::endl;
+        std::cout << "Lower bound: " << lower_bound << std::endl;
 #endif
 
         globalData.processing_time.assign(n+1, std::vector<int>(m+1, 0));
@@ -49,6 +49,7 @@ namespace IO {
         std::getline(file, line);   // 去掉字符串行
         for (int i = 1; i <= m; i ++) {
             std::getline(file, line);
+
 #ifdef IO_SHOW_INPUT_DATA
             std::cout << line;
 #endif
@@ -140,7 +141,7 @@ namespace IO {
             runSingleExample(); // 使用算法跑当前数据集样例
             // 保存数据
             fileOut << "Num of jobs: " << jobNum << std::endl
-                    << "Num of machines: " << jobNum << std::endl
+                    << "Num of machines: " << machineNum << std::endl
                     << "Dataset: " << cnt << std::endl;
             cnt ++;
             fileOut << "Best_seq_all: " << std::endl;
@@ -149,7 +150,7 @@ namespace IO {
             fileOut << "\n" << std::endl;
         }
         fileOut << "======================================================" << std::endl;
-        fileOut.close();
+        file.close();
     }
 
     /*
@@ -162,16 +163,19 @@ namespace IO {
 
         std::ofstream fileOut("bestSequence.txt", std::ios::app);
 
+
         // 遍历目录
         for (const auto& entry : std::filesystem::directory_iterator(datasetDirPath)) {
             if (std::filesystem::is_regular_file(entry.status())) { // 判断是否是文件
-                string filePath = datasetDirPath +'/'+ static_cast<string>(entry.path().filename());
+                string filePath = datasetDirPath +'/'+ entry.path().filename().string();
 #ifdef IO_SHOW_PROCESSING_FILE
                 std::cout << "Processing file: " << filePath << std::endl;
 #endif
                 singleFileProcess(filePath, fileOut);
             }
         }
+
+//        singleFileProcess("../../NEH/tests/t_j200_m10.txt", fileOut);
 
         fileOut.close();
     }
