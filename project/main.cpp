@@ -6,10 +6,15 @@
 #include "Alg2.h"
 #include "Alg3.h"
 #include "Alg4.h"
+#include "IO.h"
 #include "Utils.h"
 
-
 int main() {
+    IO::getBestSeqAndSave();
+    return 0;
+}
+
+int main0() {
     // 设置全局数据
     globalData.setData();
     // 调用 ALG1
