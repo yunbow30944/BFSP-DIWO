@@ -10,7 +10,8 @@
 #include "Utils.h"
 
 int main() {
-    IO::getBestSeqAndSave();
+//    IO::getBestSeqAndSave();
+    IO::getARPDAndSave(10);
     return 0;
 }
 

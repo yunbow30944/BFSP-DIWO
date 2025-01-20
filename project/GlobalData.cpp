@@ -26,16 +26,22 @@ void GlobalData::setData() {
     // }
 }
 
-//GlobalData::GlobalData(const GlobalData &gDtmp):
-//    n(gDtmp.n), m(gDtmp.m),
-//    processing_time(gDtmp.processing_time),
-//    total_processing_time(gDtmp.total_processing_time),
-//    indice(gDtmp.indice), POP(gDtmp.POP),
-//    POP2(gDtmp.POP2), best_seq(gDtmp.best_seq),
-//    bestmakespan(gDtmp.bestmakespan),
-//    k_max(gDtmp.k_max), P_max(gDtmp.P_max),
-//    pls(gDtmp.pls){}
-//
+GlobalData::GlobalData(const GlobalData &gDtmp):
+    n(gDtmp.n), m(gDtmp.m),
+    processing_time(gDtmp.processing_time),
+    total_processing_time(gDtmp.total_processing_time),
+    indice(gDtmp.indice), POP(gDtmp.POP),
+    POP2(gDtmp.POP2), best_seq(gDtmp.best_seq),
+    bestmakespan(gDtmp.bestmakespan),
+    k_max(gDtmp.k_max), P_max(gDtmp.P_max),
+    pls(gDtmp.pls){
+    _dataMemoryPtr = new _dataMemory(n, m, processing_time, total_processing_time,
+                                     indice, POP, POP2, best_seq, bestmakespan,
+                                     k_max, P_max, pls);
+    if(_dataMemoryPtr == nullptr)
+        throw std::runtime_error("_dataMemoryPtr: Allocation error!");
+}
+
 //GlobalData& GlobalData::operator=(const GlobalData &gDtmp) {
 //    if(this == &gDtmp)
 //        return *this;

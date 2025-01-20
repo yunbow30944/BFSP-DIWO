@@ -38,7 +38,7 @@ public:
             throw std::domain_error("_dataMemoryPtr allocation failed!");
     }
 
-//    GlobalData(const GlobalData& gDtmp);
+    GlobalData(const GlobalData& gDtmp);
 
 //    GlobalData& operator=(const GlobalData& gDtmp);
 

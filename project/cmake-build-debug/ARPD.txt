@@ -1,0 +1,276 @@
+======================================================
+File Name: ../../NEH/tests/t_j20_m10.txt
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 1
+======================================================
+File Name: ../../NEH/tests/t_j20_m10.txt
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 1
+ARPD: 7.42049
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 2
+ARPD: 6.81942
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 3
+ARPD: 2.95359
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 4
+ARPD: 4.62541
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 5
+ARPD: 4.12492
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 6
+ARPD: 4.28302
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 7
+ARPD: 2.77435
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 8
+ARPD: 3.98614
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 9
+ARPD: 4.64797
+
+Num of jobs: 20
+Num of machines: 10
+Dataset: 10
+ARPD: 4.54545
+
+======================================================
+======================================================
+File Name: ../../NEH/tests/t_j20_m20.txt
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 1
+ARPD: 6.44499
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 2
+ARPD: 8.4154
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 3
+ARPD: 4.07019
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 4
+ARPD: 3.62862
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 5
+ARPD: 3.44969
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 6
+ARPD: 3.63407
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 7
+ARPD: 2.46862
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 8
+ARPD: 7.17354
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 9
+ARPD: 5.45916
+
+Num of jobs: 20
+Num of machines: 20
+Dataset: 10
+ARPD: 3.05639
+
+======================================================
+======================================================
+File Name: ../../NEH/tests/t_j20_m5.txt
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 1
+ARPD: 1.41194
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 2
+ARPD: 3.89915
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 3
+ARPD: 2.65625
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 4
+ARPD: 2.69337
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 5
+ARPD: 3.57942
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 6
+ARPD: 4.10858
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 7
+ARPD: 2.44026
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 8
+ARPD: 2.01595
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 9
+ARPD: 3.78733
+
+Num of jobs: 20
+Num of machines: 5
+Dataset: 10
+ARPD: 3.35152
+
+======================================================
+======================================================
+File Name: ../../NEH/tests/t_j50_m10.txt
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 1
+ARPD: 6.41097
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 2
+ARPD: 6.1902
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 3
+ARPD: 5.30447
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 4
+ARPD: 4.60548
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 5
+ARPD: 5.02513
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 6
+ARPD: 5.12461
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 7
+ARPD: 6.08945
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 8
+ARPD: 5.79318
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 9
+ARPD: 7.09806
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 10
+ARPD: 4.92794
+
+======================================================
+======================================================
+File Name: ../../NEH/tests/t_j50_m5.txt
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 1
+ARPD: 5.63758
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 2
+ARPD: 3.23899
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 3
+ARPD: 6.39399
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 4
+ARPD: 4.26966
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 5
+ARPD: 5.26282
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 6
+ARPD: 4.11653
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 7
+ARPD: 3.68053
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 8
+ARPD: 4.93097
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 9
+ARPD: 6.45898
+
+Num of jobs: 50
+Num of machines: 5
+Dataset: 10
+ARPD: 3.77785
+
+======================================================

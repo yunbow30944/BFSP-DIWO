@@ -5,6 +5,7 @@
 #include "Alg1.h"
 #include "Utils.h"
 #include "GlobalData.h"
+#include "IO.h"
 
 using namespace std;
 
@@ -122,6 +123,7 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
     globalData.best_seq = globalData.POP[0];
     globalData.bestmakespan = globalData.best_seq[0];
 
+#ifdef IO_SHOW_PROCESSING_DATA
     //测试POP
     cout<<"=================POP AFTER ALG1:===================="<<endl;
     for (const auto &ele: globalData.POP) {
@@ -131,5 +133,6 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
         cout << endl;
     }
     cout<<"====================================================="<<endl;
+#endif
     return globalData.POP;
 }
