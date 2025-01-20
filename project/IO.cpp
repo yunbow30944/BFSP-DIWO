@@ -5,10 +5,10 @@
 #include "IO.h"
 
 #define IO_SHOW_INPUT_DATA  // 读取数据时确定是否需要在控制台输出读取的数据，若不输出则注释掉此句
-// #define IO_SHOW_PROCESSING_DATA  // 数据处理时确定是否需要在控制台输出每个ALG处理完的数据，若不输出则注释掉此句
+#define IO_SHOW_PROCESSING_DATA  // 数据处理时确定是否需要在控制台输出每个ALG处理完的数据，若不输出则注释掉此句
 #define IO_SHOW_PROCESSING_FILE // 运行算法时在控制台输出当前正在处理哪个文件，若不输出则注释词句
 
-static std::string datasetDirPath = "../../NEH/tests";
+static const std::string datasetDirPath = "../../NEH/tests";
 // tests文件夹目录，默认程序在cmake-build-debug目录下，如果移动程序需要修改
 
 namespace IO {
@@ -137,6 +137,7 @@ namespace IO {
                 << "File Name: " << filePath << "\n" << std::endl;
         int cnt = 1;
         while (std::getline(file, line)) {
+            globalData.resetData();
             auto[jobNum, machineNum] = setData(file);   // 设置globalData
             runSingleExample(); // 使用算法跑当前数据集样例
             // 保存数据
@@ -163,7 +164,6 @@ namespace IO {
 
         std::ofstream fileOut("bestSequence.txt", std::ios::app);
 
-
         // 遍历目录
         for (const auto& entry : std::filesystem::directory_iterator(datasetDirPath)) {
             if (std::filesystem::is_regular_file(entry.status())) { // 判断是否是文件
@@ -174,9 +174,6 @@ namespace IO {
                 singleFileProcess(filePath, fileOut);
             }
         }
-
-//        singleFileProcess("../../NEH/tests/t_j200_m10.txt", fileOut);
-
         fileOut.close();
     }
 };
