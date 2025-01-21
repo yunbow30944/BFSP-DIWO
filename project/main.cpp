@@ -18,6 +18,7 @@ int main() {
 int main0() {
     // 设置全局数据
     globalData.setData();
+    ALG2::Sigma sig;
     // 调用 ALG1
     ALG1(10, 10);
 

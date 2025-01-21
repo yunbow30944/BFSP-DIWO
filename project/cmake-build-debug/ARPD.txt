@@ -274,3 +274,139 @@ Dataset: 10
 ARPD: 3.77785
 
 ======================================================
+======================================================
+File Name: ../../NEH/tests/t_j50_m10.txt
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 1
+======================================================
+File Name: ../../NEH/tests/t_j50_m10.txt
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 1
+ARPD: 6.75713
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 2
+ARPD: 6.31124
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 3
+ARPD: 5.56999
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 4
+ARPD: 4.71233
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 5
+ARPD: 5.02513
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 6
+ARPD: 5.12461
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 7
+ARPD: 5.99945
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 8
+ARPD: 6.17075
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 9
+ARPD: 7.09806
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 10
+ARPD: 5.15521
+
+======================================================
+======================================================
+File Name: ../../NEH/tests/t_j200_m10.txt
+
+Num of jobs: 200
+Num of machines: 10
+Dataset: 1
+======================================================
+File Name: ../../NEH/tests/t_j50_m10.txt
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 1
+ARPD: 6.75713
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 2
+ARPD: 6.31124
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 3
+ARPD: 5.56999
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 4
+ARPD: 4.71233
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 5
+ARPD: 5.02513
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 6
+ARPD: 5.12461
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 7
+ARPD: 5.99945
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 8
+ARPD: 6.17075
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 9
+ARPD: 7.09806
+
+Num of jobs: 50
+Num of machines: 10
+Dataset: 10
+ARPD: 5.15521
+
+======================================================
+======================================================
+File Name: ../../NEH/tests/t_j200_m10.txt
+
+Num of jobs: 200
+Num of machines: 10
+Dataset: 1
+ARPD: 2.9584
+
+Num of jobs: 200
+Num of machines: 10
+Dataset: 2
+ARPD: 2.50669
+
+Num of jobs: 200
+Num of machines: 10
+Dataset: 3

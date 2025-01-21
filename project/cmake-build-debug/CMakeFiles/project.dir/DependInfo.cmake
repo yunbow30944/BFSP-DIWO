@@ -8,14 +8,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "D:/HUSTWorkfield/BFSP/project/Alg1.cpp" "CMakeFiles/project.dir/Alg1.cpp.obj" "gcc" "CMakeFiles/project.dir/Alg1.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/Alg2.cpp" "CMakeFiles/project.dir/Alg2.cpp.obj" "gcc" "CMakeFiles/project.dir/Alg2.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/Alg3.cpp" "CMakeFiles/project.dir/Alg3.cpp.obj" "gcc" "CMakeFiles/project.dir/Alg3.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/Alg4.cpp" "CMakeFiles/project.dir/Alg4.cpp.obj" "gcc" "CMakeFiles/project.dir/Alg4.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/GlobalData.cpp" "CMakeFiles/project.dir/GlobalData.cpp.obj" "gcc" "CMakeFiles/project.dir/GlobalData.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/IO.cpp" "CMakeFiles/project.dir/IO.cpp.obj" "gcc" "CMakeFiles/project.dir/IO.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/Utils.cpp" "CMakeFiles/project.dir/Utils.cpp.obj" "gcc" "CMakeFiles/project.dir/Utils.cpp.obj.d"
-  "D:/HUSTWorkfield/BFSP/project/main.cpp" "CMakeFiles/project.dir/main.cpp.obj" "gcc" "CMakeFiles/project.dir/main.cpp.obj.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/Alg1.cpp" "CMakeFiles/project.dir/Alg1.cpp.o" "gcc" "CMakeFiles/project.dir/Alg1.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/Alg2.cpp" "CMakeFiles/project.dir/Alg2.cpp.o" "gcc" "CMakeFiles/project.dir/Alg2.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/Alg3.cpp" "CMakeFiles/project.dir/Alg3.cpp.o" "gcc" "CMakeFiles/project.dir/Alg3.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/Alg4.cpp" "CMakeFiles/project.dir/Alg4.cpp.o" "gcc" "CMakeFiles/project.dir/Alg4.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/GlobalData.cpp" "CMakeFiles/project.dir/GlobalData.cpp.o" "gcc" "CMakeFiles/project.dir/GlobalData.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/IO.cpp" "CMakeFiles/project.dir/IO.cpp.o" "gcc" "CMakeFiles/project.dir/IO.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/Utils.cpp" "CMakeFiles/project.dir/Utils.cpp.o" "gcc" "CMakeFiles/project.dir/Utils.cpp.o.d"
+  "/Users/zhouyujie/Developer/HustWorkfield/BFSP/project/main.cpp" "CMakeFiles/project.dir/main.cpp.o" "gcc" "CMakeFiles/project.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -63,12 +63,14 @@ namespace IO {
      * 使用算法运行单个实例，与main函数主体大致相同
      */
     void runSingleExample() {
+        ALG2::Sigma sig;
         ALG1(10, 10);
-        for (int k = 1; k <= globalData.k_max; k++) {//TODO:substitute k
+        // for (int k = 1; k <= globalData.k_max; k++) {//TODO:substitute k
+        while (sig.getRunTime() <= ALG2::t_max) {
             vector<int> s = reproduction(0, 7);
             globalData.POP2.clear();
             for (int i = 1; i <= globalData.P_max; i++) {
-                spatialDispersal(k, s, 0, 5);
+                spatialDispersal(s, 0, 5, sig);
             }
 
 #ifdef IO_SHOW_PROCESSING_DATA
