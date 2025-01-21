@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.29)
 project(project)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(.)
 
@@ -19,4 +19,6 @@ add_executable(project
     main.cpp
     Utils.cpp
     Utils.h
+    IO.cpp
+    IO.h
 )

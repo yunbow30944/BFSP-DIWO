@@ -6,8 +6,13 @@
 #include "Alg2.h"
 #include "Alg3.h"
 #include "Alg4.h"
+#include "IO.h"
 #include "Utils.h"
 
+int main0() {
+    IO::getBestSeqAndSave();
+    return 0;
+}
 
 int main() {
     // 设置全局数据
