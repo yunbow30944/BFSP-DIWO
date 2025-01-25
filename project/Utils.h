@@ -17,7 +17,15 @@ using namespace std;
 class Utils {
 public:
     // 工具函数示例：打印二维向量
-    static int calculate(const vector<int> &order, const vector<vector<int> > &processing_time);
+    static void remove_non_improving_moves(const vector<vector<int>> &e, const vector<vector<int>> &f, const int c_max, vector<vector<int>> &V, const vector<int> order, const vector<vector<int>> processing_time);
+
+    static void caculate_tail_time(vector<vector<int>> &f, const int begin, const vector<int> &order, const vector<vector<int>> &processing_time);
+
+    static void calculate_depature_time(vector<vector<int>> &e, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time);
+
+    static int calculate_makespan(const int q, const vector<vector<int>> &e_1, const vector<vector<int>> &f_2);
+
+    static int calculate(const vector<int> &order, const vector<vector<int>> &processing_time);
 
     static vector<vector<int> > calculate_v(int &v, int i, const vector<int> &order, vector<vector<int> > d,
                                             const vector<vector<int> > &processing_time);
