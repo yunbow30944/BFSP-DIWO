@@ -106,16 +106,16 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
                 order.push_back(pi_R[l]); // order是pi序列，pi_new是pi''序列，插入后变成pi'序列
 
                 int n = order.size() - 1;
-
-                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
                 int m = processing_time[0].size() - 1;
-
+                
                 vector<vector<int>> e(n + 1, vector<int>(m + 1, 0));
                 vector<vector<int>> f(n + 1, vector<int>(m + 2, 0));
+                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
 
                 Utils::calculate_depature_time(e, 1, n, order, processing_time);
                 Utils::caculate_tail_time(f, 1, order, processing_time);
                 int best_time = f[1][1];
+                Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
 
                 vector<vector<int>> e_2 = e;
                 vector<vector<int>> f_2 = f;
@@ -212,16 +212,16 @@ vector<vector<int> > spatialDispersal(vector<int> s, const double sigma_min, con
                 order.push_back(pi_R[l]);//order是pi序列，pi_new是pi''序列，插入后变成pi'序列
 
                 int n = order.size() - 1;
-                
-                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
                 int m = processing_time[0].size() - 1;
-
+                
                 vector<vector<int>> e(n + 1, vector<int>(m + 1, 0));
                 vector<vector<int>> f(n + 1, vector<int>(m + 2, 0));
+                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
 
                 Utils::calculate_depature_time(e, 1, n, order, processing_time);
                 Utils::caculate_tail_time(f, 1, order, processing_time);
                 int best_time = f[1][1];
+                Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
 
                 vector<vector<int>> e_2 = e;
                 vector<vector<int>> f_2 = f;
