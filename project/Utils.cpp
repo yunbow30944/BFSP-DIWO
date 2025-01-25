@@ -6,6 +6,136 @@
 #include <chrono>
 using namespace std;
 
+void remove_non_improving_moves(const vector<vector<int>> &e, const vector<vector<int>> &f, const int c_max, vector<vector<int>> &V, const vector<int> order, const vector<vector<int>> processing_time) // 利用正反块去除掉没有意义的插入操作
+{
+    int m = processing_time[0].size() - 1;
+    int n = order.size() - 1;
+    vector<vector<int>> B(m + 1), AB(m + 1);
+    for (int j = 1; j < n; ++j)
+        for (int k = m; k > 0; --k)
+        {
+            if (e[j][k] + f[j + 1][k] == c_max)
+            {
+                if (e[j][k] == e[j][k - 1] + processing_time[j][k])
+                {
+                    if (B[k].empty())
+                        B[k] = {j, k};
+                    else
+                        B[k].push_back(j + 1);
+                }
+                else if (e[j][k] > e[j][k - 1] + processing_time[j][k])
+                {
+                    if (AB[k].empty())
+                        AB[k] = {j, j + 1};
+                    else
+                    {
+                        AB[k] = AB[k + 1];
+                        AB[k].push_back(j + 1);
+                        AB[k + 1].clear();
+                    }
+                    if (k == 1)
+                    {
+                        int gk = AB[k][0];
+                        int hk = AB[k].back();
+
+                        for (int i = gk; i <= hk; ++i)
+                            for (int q = gk; q <= hk; ++q)
+                            {
+                                if (V[i][q] && (i == gk || q != gk))
+                                    V[i][q] = 0;
+                            }
+
+                        AB[k].clear();
+                    }
+                }
+            }
+
+            if (e[j][k] + f[j + 1][k] < c_max)
+            {
+                if (!B[k].empty())
+                {
+                    int gk = B[k][0];
+                    int hk = B[k].back();
+
+                    for (int i = gk; i <= hk; ++i)
+                        for (int q = gk; q <= hk; ++q)
+                        {
+                            if (V[i][q] && (i == gk || q != gk))
+                                V[i][q] = 0;
+                        }
+                    B[k].clear();
+                }
+
+                if (!AB[k + 1].empty())
+                {
+                    int gk = AB[k + 1][0];
+                    int hk = AB[k + 1].back();
+
+                    for (int i = gk; i <= hk; ++i)
+                        for (int q = gk; q <= hk; ++q)
+                        {
+                            if (V[i][q] && (i == gk || q != gk))
+                                V[i][q] = 0;
+                        }
+
+                    AB[k + 1].clear();
+                }
+            }
+        }
+}
+
+void Utils::calculate_depature_time(vector<vector<int>> &e, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time)
+{
+    int m = processing_time[0].size() - 1;
+    for (int i = begin; i <= end; ++i)
+    {
+        if (i == 1)
+        {
+            e[1][0] = 0;
+            for (int j = 1; j <= m - 1; ++j)
+                e[1][j] = e[1][j - 1] + processing_time[order[1]][j];
+        }
+        else
+        {
+            e[i][0] = e[i - 1][1];
+            for (int j = 1; j <= m - 1; ++j)
+                e[i][j] = max(e[j][j - 1] + processing_time[order[i]][j], e[i - 1][j + 1]);
+        }
+        e[i][m] = e[i][m - 1] + processing_time[order[i]][m];
+    }
+}
+
+void Utils::caculate_tail_time(vector<vector<int>> &f, const int begin, const vector<int> &order, const vector<vector<int>> &processing_time)
+{
+    int n = order.size() - 1;
+    int m = processing_time[0].size() - 1;
+
+    for (int i = begin; i >= 1; --i)
+    {
+        if (i == n)
+        {
+            f[n][m + 1] = 0;
+            for (int j = m; j >= 2; --j)
+                f[n][j] = f[n][j + 1] + processing_time[order[i]][j];
+        }
+        else
+        {
+            f[i][m + 1] = f[i + 1][m];
+            for (int j = m; j >= 2; --j)
+                f[i][j] = max(f[i][j + 1] + processing_time[order[i]][j], f[i + 1][j - 1]);
+            f[i][1] = f[i][2] + processing_time[order[i]][1];
+        }
+    }
+}
+
+int Utils::calculate_makespan(const int q, const vector<vector<int>> &e_1, const vector<vector<int>> &f_2)
+{
+    int c_max = 0;
+    int m = e_1[0].size() - 1;
+    for (int k = 1; k <= m; ++k)
+        c_max = max(c_max, e_1[q][k] + f_2[q][k]);
+    return c_max;
+}
 
 //计算完工时间
 int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {

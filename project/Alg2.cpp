@@ -100,32 +100,77 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
             }
             Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//TODO: 升序真的好吗？
 
-            for (int l = 0; l < d; l++) {//TODO:optimize here
-                int best_time = INT_MAX;
-                vector<int> best_pi;
-                //对不同位置插入pi_R中的元素
-                for (int pos = 1; pos <= pi_new.size(); pos++) {
-                    if (pos == pi_new.size()) {
-                        pi_new.push_back(pi_R[l]);
-                        int t = Utils::calculate(pi_new, processing_time);
-                        if (t < best_time) {
-                            best_time = t;
-                            best_pi = pi_new;
-                        }
-                        pi_new.pop_back();
-                    } else {
+            for (int l = 0; l < d; l++)
+            {
+                vector<int> best_pi, order = pi_new;
+                order.push_back(pi_R[l]); // order是pi序列，pi_new是pi''序列，插入后变成pi'序列
+
+                int n = order.size() - 1;
+                int m = processing_time[0].size() - 1;
+                
+                vector<vector<int>> e(n + 1, vector<int>(m + 1, 0));
+                vector<vector<int>> f(n + 1, vector<int>(m + 2, 0));
+                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
+
+                Utils::calculate_depature_time(e, 1, n, order, processing_time);
+                Utils::caculate_tail_time(f, 1, order, processing_time);
+                int best_time = f[1][1];
+                Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
+
+                vector<vector<int>> e_2 = e;
+                vector<vector<int>> f_2 = f;
+
+                Utils::calculate_depature_time(e_2, n, n - 1, pi_new, processing_time);
+                Utils::caculate_tail_time(f_2, n, pi_new, processing_time);
+
+                for (int pos = 1; pos < pi_new.size(); pos++)
+                {
+                    pi_new.insert(pi_new.begin() + pos, pi_R[l]);
+                    if (V[n][pos])
+                    {
+                        vector<vector<int>> e_1 = e_2;
                         pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-                        int t = Utils::calculate(pi_new, processing_time);
-                        if (t < best_time) {
+                        Utils::calculate_depature_time(e_1, pos, pos, pi_new, processing_time);
+                        int t = Utils::calculate_makespan(pos, e_1, f_2);
+                        if (t < best_time)
+                        {
                             best_time = t;
                             best_pi = pi_new;
                         }
-                        pi_new.erase(pi_new.begin() + pos);
                     }
+                    pi_new.erase(pi_new.begin() + pos);
                 }
+
                 pi_new = best_pi;
-                pi_new[0] = Utils::calculate(pi_new, processing_time);
+                pi_new[0] = best_time;
             }
+
+            // for (int l = 0; l < d; l++) {//TODO:optimize here
+            //     int best_time = INT_MAX;
+            //     vector<int> best_pi;
+            //     //对不同位置插入pi_R中的元素
+            //     for (int pos = 1; pos <= pi_new.size(); pos++) {
+            //         if (pos == pi_new.size()) {
+            //             pi_new.push_back(pi_R[l]);
+            //             int t = Utils::calculate(pi_new, processing_time);
+            //             if (t < best_time) {
+            //                 best_time = t;
+            //                 best_pi = pi_new;
+            //             }
+            //             pi_new.pop_back();
+            //         } else {
+            //             pi_new.insert(pi_new.begin() + pos, pi_R[l]);
+            //             int t = Utils::calculate(pi_new, processing_time);
+            //             if (t < best_time) {
+            //                 best_time = t;
+            //                 best_pi = pi_new;
+            //             }
+            //             pi_new.erase(pi_new.begin() + pos);
+            //         }
+            //     }
+            //     pi_new = best_pi;
+            //     pi_new[0] = Utils::calculate(pi_new, processing_time);
+            // }
             globalData.POP2.push_back(pi_new);
         }
     }
@@ -161,32 +206,77 @@ vector<vector<int> > spatialDispersal(vector<int> s, const double sigma_min, con
             }
             Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//TODO: 升序真的好吗？
 
-            for (int l = 0; l < d; l++) {//TODO:optimize here
-                int best_time = INT_MAX;
-                vector<int> best_pi;
-                //对不同位置插入pi_R中的元素
-                for (int pos = 1; pos <= pi_new.size(); pos++) {
-                    if (pos == pi_new.size()) {
-                        pi_new.push_back(pi_R[l]);
-                        int t = Utils::calculate(pi_new, processing_time);
-                        if (t < best_time) {
-                            best_time = t;
-                            best_pi = pi_new;
-                        }
-                        pi_new.pop_back();
-                    } else {
+            for (int l = 0; l < d; l++)
+            {
+                vector<int> best_pi, order = pi_new;
+                order.push_back(pi_R[l]);//order是pi序列，pi_new是pi''序列，插入后变成pi'序列
+
+                int n = order.size() - 1;
+                int m = processing_time[0].size() - 1;
+                
+                vector<vector<int>> e(n + 1, vector<int>(m + 1, 0));
+                vector<vector<int>> f(n + 1, vector<int>(m + 2, 0));
+                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
+
+                Utils::calculate_depature_time(e, 1, n, order, processing_time);
+                Utils::caculate_tail_time(f, 1, order, processing_time);
+                int best_time = f[1][1];
+                Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
+
+                vector<vector<int>> e_2 = e;
+                vector<vector<int>> f_2 = f;
+
+                Utils::calculate_depature_time(e_2, n,n - 1, pi_new, processing_time);
+                Utils::caculate_tail_time(f_2, n, pi_new, processing_time);
+
+                for (int pos = 1; pos < pi_new.size(); pos++)
+                {
+                    pi_new.insert(pi_new.begin() + pos, pi_R[l]);
+                    if(V[n][pos])
+                    {
+                        vector<vector<int>> e_1 = e_2;
                         pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-                        int t = Utils::calculate(pi_new, processing_time);
-                        if (t < best_time) {
+                        Utils::calculate_depature_time(e_1, pos, pos, pi_new, processing_time);
+                        int t = Utils::calculate_makespan(pos, e_1, f_2);
+                        if (t<best_time)
+                        {
                             best_time = t;
                             best_pi = pi_new;
                         }
-                        pi_new.erase(pi_new.begin() + pos);
                     }
+                    pi_new.erase(pi_new.begin() + pos);
                 }
+
                 pi_new = best_pi;
-                pi_new[0] = Utils::calculate(pi_new, processing_time);
+                pi_new[0] = best_time;
             }
+
+            // for (int l = 0; l < d; l++) {//TODO:optimize here
+            //     int best_time = INT_MAX;
+            //     vector<int> best_pi;
+            //     //对不同位置插入pi_R中的元素
+            //     for (int pos = 1; pos <= pi_new.size(); pos++) {
+            //         if (pos == pi_new.size()) {
+            //             pi_new.push_back(pi_R[l]);
+            //             int t = Utils::calculate(pi_new, processing_time);
+            //             if (t < best_time) {
+            //                 best_time = t;
+            //                 best_pi = pi_new;
+            //             }
+            //             pi_new.pop_back();
+            //         } else {
+            //             pi_new.insert(pi_new.begin() + pos, pi_R[l]);
+            //             int t = Utils::calculate(pi_new, processing_time);
+            //             if (t < best_time) {
+            //                 best_time = t;
+            //                 best_pi = pi_new;
+            //             }
+            //             pi_new.erase(pi_new.begin() + pos);
+            //         }
+            //     }
+            //     pi_new = best_pi;
+            //     pi_new[0] = Utils::calculate(pi_new, processing_time);
+            // }
             globalData.POP2.push_back(pi_new);
         }
     }

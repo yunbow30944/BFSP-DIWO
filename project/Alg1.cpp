@@ -9,33 +9,79 @@
 
 using namespace std;
 
-// NEH_PI 算法来优化顺序
 vector<int> NEH_PI(const int lambda, const int n, vector<int> &Best_Sequence,
-                   const vector<vector<int> > &processing_time) {//TODO：optimize the complexity of insertion phase
-    vector<int> order(n - lambda + 1); // 当前顺序，注意范围
+                   const vector<vector<int>> &processing_time) // 改完后，每次进行寻找最佳邻域直至无法优化，lambda也没用，原来的是在插入过程中逐步更新，每步不一定是最优
+{
 
-    copy(Best_Sequence.begin() + 1, Best_Sequence.begin() + n - lambda + 1, order.begin() + 1);
+    // 初始化
+    int m = processing_time[0].size() - 1;
+    vector<int> order = Best_Sequence;
+    int bestmakespan = INT_MAX;
 
-    for (int i = n - lambda + 1; i <= n; ++i) // 处理后 lambda 个组件
+    vector<vector<int>> e(n + 1, vector<int>(m + 1, 0)), e_2(n + 1, vector<int>(m + 1, 0));
+    vector<vector<int>> f(n + 1, vector<int>(m + 2, 0)), f_2(n + 1, vector<int>(m + 2, 0));
+
+    bool improvement = true;
+
+    while (improvement)
     {
-        int indice = Best_Sequence[i]; // 取出当前组件
-        int index = 0;
-        int bestmakespan = INT_MAX;
-        for (int j = 1; j <= i; ++j) // 插入位置的尝试
+        vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
+        improvement = false;
+
+        Utils::calculate_depature_time(e, 1, n, order, processing_time); // 根据当前序列计算e
+        Utils::caculate_tail_time(f, 1, order, processing_time);         // 根据当前序列计算f
+        bestmakespan = f[1][1];                                   // 当前序列的makespan
+
+        Utils::remove_non_improving_moves(e, f, bestmakespan, V, order, processing_time);
+
+        int indice = 1;
+        int index = 1;
+
+        for (int i = 1; i <= n; ++i)
         {
             vector<int> temp_order = order;
-            temp_order.insert(temp_order.begin() + j, indice); // 将组件插入到位置 j
-            int makespan = Utils::calculate(temp_order, processing_time); // 计算插入后的处理时间
-            if (makespan < bestmakespan) // 更新最优顺序
+            temp_order.erase(temp_order.begin() + i); // 形成pi''序列
+
+            // 获取e''和f''
+            e_2 = e;
+            f_2 = f;
+
+            Utils::calculate_depature_time(e_2, i, n - 1, temp_order, processing_time);
+            // e_2.erase(e_2.begin() + n); // 去掉多余数据，不去也没关系
+            Utils::caculate_tail_time(f_2, i, temp_order, processing_time);
+            // f_2.erase(f_2.begin() + n); // 去掉多余数据，不去也没关系
+
+            // 选择插入位置
+            for (int q = 1; q <= n; ++q)
             {
-                index = j;
-                bestmakespan = makespan;
+                if (V[i][q] && q != i - 1 && q != i)
+                {
+                    vector<vector<int>> e_1 = e_2;
+                    temp_order.insert(temp_order.begin() + q, order[i]);             // 插入位置
+                    Utils::calculate_depature_time(e_1, q, q, temp_order, processing_time); // 计算e'(q,k)
+                    temp_order.erase(temp_order.begin() + q);                        // 还原为pi''序列
+                    int makespan = Utils::calculate_makespan(q, e_1, f_2);
+                    if (makespan < bestmakespan)
+                    {
+                        improvement = true;
+                        bestmakespan = makespan;
+                        indice = i;
+                        index = q;
+                    }
+                }
             }
         }
-        order.insert(order.begin() + index, indice); // 将组件插入到位置 j
+
+        if (improvement)
+        {
+            int k = order[indice];
+            order.erase(order.begin() + indice);
+            order.insert(order.begin() + index, k);
+        }
     }
-    order[0] = Utils::calculate(order, processing_time);
-    return order; // 返回最优顺序
+
+    order[0] = bestmakespan;
+    return order;
 }
 
 // 初始化种群，生成一个初始的优良序列，需修改
