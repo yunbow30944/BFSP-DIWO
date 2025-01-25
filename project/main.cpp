@@ -9,14 +9,16 @@
 #include "IO.h"
 #include "Utils.h"
 
-int main0() {
+int main() {
     IO::getBestSeqAndSave();
+    IO::getARPDAndSave(10);
     return 0;
 }
 
-int main() {
+int main0() {
     // 设置全局数据
     globalData.setData();
+    ALG2::Sigma sig;
     // 调用 ALG1
     ALG1(10, 10);
 
