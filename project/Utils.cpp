@@ -6,7 +6,7 @@
 #include <chrono>
 using namespace std;
 
-void remove_non_improving_moves(const vector<vector<int>> &e, const vector<vector<int>> &f, const int c_max, vector<vector<int>> &V, const vector<int> order, const vector<vector<int>> processing_time) // 利用正反块去除掉没有意义的插入操作
+void Utils::remove_non_improving_moves(const vector<vector<int>> &e, const vector<vector<int>> &f, const int c_max, vector<vector<int>> &V, const vector<int> order, const vector<vector<int>> processing_time) // 利用正反块去除掉没有意义的插入操作
 {
     int m = processing_time[0].size() - 1;
     int n = order.size() - 1;
