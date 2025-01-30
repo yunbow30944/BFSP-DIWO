@@ -19,7 +19,7 @@ vector<int> NEH_PI(const int lambda, const int n, vector<int> &Best_Sequence,
     int bestmakespan = INT_MAX;
 
     vector<vector<int>> e(n + 1, vector<int>(m + 1, 0)), e_2(n + 1, vector<int>(m + 1, 0));
-    vector<vector<int>> f(n + 1, vector<int>(m + 2, 0)), f_2(n + 1, vector<int>(m + 2, 0));
+    vector<vector<int>> f(n + 1, vector<int>(m + 1, 0)), f_2(n + 1, vector<int>(m + 1, 0));
 
     bool improvement = true;
 
