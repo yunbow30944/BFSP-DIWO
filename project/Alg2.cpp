@@ -145,32 +145,6 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
                 pi_new[0] = best_time;
             }
 
-            // for (int l = 0; l < d; l++) {//TODO:optimize here
-            //     int best_time = INT_MAX;
-            //     vector<int> best_pi;
-            //     //对不同位置插入pi_R中的元素
-            //     for (int pos = 1; pos <= pi_new.size(); pos++) {
-            //         if (pos == pi_new.size()) {
-            //             pi_new.push_back(pi_R[l]);
-            //             int t = Utils::calculate(pi_new, processing_time);
-            //             if (t < best_time) {
-            //                 best_time = t;
-            //                 best_pi = pi_new;
-            //             }
-            //             pi_new.pop_back();
-            //         } else {
-            //             pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-            //             int t = Utils::calculate(pi_new, processing_time);
-            //             if (t < best_time) {
-            //                 best_time = t;
-            //                 best_pi = pi_new;
-            //             }
-            //             pi_new.erase(pi_new.begin() + pos);
-            //         }
-            //     }
-            //     pi_new = best_pi;
-            //     pi_new[0] = Utils::calculate(pi_new, processing_time);
-            // }
             globalData.POP2.push_back(pi_new);
         }
     }
@@ -251,32 +225,6 @@ vector<vector<int> > spatialDispersal(vector<int> s, const double sigma_min, con
                 pi_new[0] = best_time;
             }
 
-            // for (int l = 0; l < d; l++) {//TODO:optimize here
-            //     int best_time = INT_MAX;
-            //     vector<int> best_pi;
-            //     //对不同位置插入pi_R中的元素
-            //     for (int pos = 1; pos <= pi_new.size(); pos++) {
-            //         if (pos == pi_new.size()) {
-            //             pi_new.push_back(pi_R[l]);
-            //             int t = Utils::calculate(pi_new, processing_time);
-            //             if (t < best_time) {
-            //                 best_time = t;
-            //                 best_pi = pi_new;
-            //             }
-            //             pi_new.pop_back();
-            //         } else {
-            //             pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-            //             int t = Utils::calculate(pi_new, processing_time);
-            //             if (t < best_time) {
-            //                 best_time = t;
-            //                 best_pi = pi_new;
-            //             }
-            //             pi_new.erase(pi_new.begin() + pos);
-            //         }
-            //     }
-            //     pi_new = best_pi;
-            //     pi_new[0] = Utils::calculate(pi_new, processing_time);
-            // }
             globalData.POP2.push_back(pi_new);
         }
     }

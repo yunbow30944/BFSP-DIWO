@@ -110,18 +110,18 @@ void Utils::caculate_tail_time(vector<vector<int>> &f, const int begin, const ve
     int n = order.size() - 1;
     int m = processing_time[0].size() - 1;
 
-    for (int i = begin; i >= 1; --i)
+    for (int i = min(n, begin); i >= 1; --i)
     {
         if (i == n)
         {
-            f[n][m + 1] = 0;
-            for (int j = m; j >= 2; --j)
+            f[n][m] = processing_time[order[i]][m];
+            for (int j = m - 1; j >= 1; --j)
                 f[n][j] = f[n][j + 1] + processing_time[order[i]][j];
         }
         else
         {
-            f[i][m + 1] = f[i + 1][m];
-            for (int j = m; j >= 2; --j)
+            f[n][m] = processing_time[order[i]][m];
+            for (int j = m - 1; j >= 1; --j)
                 f[i][j] = max(f[i][j + 1] + processing_time[order[i]][j], f[i + 1][j - 1]);
             f[i][1] = f[i][2] + processing_time[order[i]][1];
         }
