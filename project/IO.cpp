@@ -1,7 +1,7 @@
 //
 // Created by 周煜杰 on 25-1-17.
 //
-
+#define IO_SHOW_PROCESSING_DATA
 #include "IO.h"
 
 static const std::string datasetDirPath = "../../NEH/tests";
