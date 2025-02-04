@@ -21,4 +21,6 @@ add_executable(project
     Utils.h
     IO.cpp
     IO.h
+    Test.cpp
+    Test.h
 )

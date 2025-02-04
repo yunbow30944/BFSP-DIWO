@@ -13,9 +13,9 @@ using namespace std;
 
 namespace ALG2 {
     // 单位：毫秒
-    const int t_max = 30;
+    // const int t_max = 30;
     // const int t_max = 60;
-    // const int t_max = 90;
+    const int t_max = 90;
 
     const double epsilon = 1e-9;
     const vector<int> S_MIN{0, 1, 2};
@@ -62,6 +62,7 @@ namespace ALG2 {
             return clock()-this->start;
         }
     };
+    int generate_d(Sigma &sigma, int i, const double sigma_min, const double sigma_max);
 }
 
 vector<int> reproduction(int S_min, int S_max);

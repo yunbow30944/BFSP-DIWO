@@ -7,11 +7,14 @@
 #include "Alg3.h"
 #include "Alg4.h"
 #include "IO.h"
+#include "Test.h"
 #include "Utils.h"
 
 int main() {
-    IO::getBestSeqAndSave();
-    IO::getARPDAndSave(10);
+    // IO::getBestSeqAndSave();
+    // IO::getARPDAndSave(10);
+
+    Test::makespanTest(1);
     return 0;
 }
 
