@@ -10,73 +10,60 @@
 using namespace std;
 
 vector<int> NEH_PI(const int lambda, const int n, vector<int> &Best_Sequence,
-                   const vector<vector<int>> &processing_time) // 改完后，每次进行寻找最佳邻域直至无法优化，lambda也没用，原来的是在插入过程中逐步更新，每步不一定是最优
+                   const vector<vector<int>> &processing_time)
 {
-
-    // 初始化
     int m = processing_time[0].size() - 1;
-    vector<int> order = Best_Sequence;
+    vector<int> order(n - lambda + 1, 0);
+    copy(Best_Sequence.begin() + 1, Best_Sequence.begin() + n - lambda, order.begin() + 1);
     int bestmakespan = INT_MAX;
 
-    vector<vector<int>> e(n + 1, vector<int>(m + 1, 0)), e_2(n + 1, vector<int>(m + 1, 0));
-    vector<vector<int>> f(n + 1, vector<int>(m + 1, 0)), f_2(n + 1, vector<int>(m + 1, 0));
-
-    bool improvement = true;
-
-    while (improvement)
+    for (int i = n - lambda + 1; i <= n; ++i)
     {
-        vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
-        improvement = false;
+        vector<vector<int>> e(i + 1, vector<int>(m + 1, 0)), f_2(i + 1, vector(m + 2, 0));
 
-        Utils::calculate_depature_time(e, 1, n, order, processing_time); // 根据当前序列计算e
-        Utils::caculate_tail_time(f, 1, order, processing_time);         // 根据当前序列计算f
-        bestmakespan = f[1][1];                                   // 当前序列的makespan
+        int index = i;
 
-        Utils::remove_non_improving_moves(e, f, bestmakespan, V, order, processing_time);
+        vector<int> temp_order = order;    // pi''
+        order.push_back(Best_Sequence[i]); // pi
+        Utils::calculate_depature_time(e, 1, i, order, processing_time);
 
-        int indice = 1;
-        int index = 1;
+        // vector<vector<int>> e_2(i+1,vector<int>(m+1,0)),f(i+1,vector<int>(m+1,0));
+        // Utils::caculate_tail_time(f, i, order, processing_time); //f似乎不需要算
 
-        for (int i = 1; i <= n; ++i)
+        bestmakespan = e[i][m];
+
+        // printf("e[i][m]-f[1][1] = %d\n", e[i][m] - f[1][1]);
+
+        // e_2 = e; //用e代替e_2
+        // f_2 = f;
+        // // 不用计算e_2，因为i是pi序列中最后一位，恒大于j
+        Utils::caculate_tail_time(f_2, i, temp_order, processing_time);
+
+        for (int q = 1; q < i - 1; ++q)
         {
-            vector<int> temp_order = order;
-            temp_order.erase(temp_order.begin() + i); // 形成pi''序列
+            vector<vector<int>> e_1 = e;
+            temp_order.insert(temp_order.begin() + q, order[i]); // pi'
+            Utils::calculate_depature_time(e_1, q, q, temp_order, processing_time);
 
-            // 获取e''和f''
-            e_2 = e;
-            f_2 = f;
+            int makespan = Utils::calculate_makespan(q, e, f_2);
 
-            Utils::calculate_depature_time(e_2, i, n - 1, temp_order, processing_time);
-            // e_2.erase(e_2.begin() + n); // 去掉多余数据，不去也没关系
-            Utils::caculate_tail_time(f_2, i, temp_order, processing_time);
-            // f_2.erase(f_2.begin() + n); // 去掉多余数据，不去也没关系
+            // int true_makespan = Utils::calculate(temp_order, processing_time);
+            // printf("true_makespan - makespan: %d\n", true_makespan - makespan);
 
-            // 选择插入位置
-            for (int q = 1; q <= n; ++q)
+            temp_order.erase(temp_order.begin() + q);
+
+            if (makespan < bestmakespan)
             {
-                if (V[i][q] && q != i - 1 && q != i)
-                {
-                    vector<vector<int>> e_1 = e_2;
-                    temp_order.insert(temp_order.begin() + q, order[i]);             // 插入位置
-                    Utils::calculate_depature_time(e_1, q, q, temp_order, processing_time); // 计算e'(q,k)
-                    temp_order.erase(temp_order.begin() + q);                        // 还原为pi''序列
-                    int makespan = Utils::calculate_makespan(q, e_1, f_2);
-                    if (makespan < bestmakespan)
-                    {
-                        improvement = true;
-                        bestmakespan = makespan;
-                        indice = i;
-                        index = q;
-                    }
-                }
+                bestmakespan = makespan;
+                index = q;
             }
         }
 
-        if (improvement)
+        if (index != i)
         {
-            int k = order[indice];
-            order.erase(order.begin() + indice);
-            order.insert(order.begin() + index, k);
+            int indice = order[i];
+            order.erase(order.begin() + i);
+            order.insert(order.begin() + index, indice);
         }
     }
 
