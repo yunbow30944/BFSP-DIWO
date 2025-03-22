@@ -4,3 +4,58 @@
 ./*/DS_Store
 ./cmake-build-debug
 .idea
+# 构建输出目录
+/build/
+/out/
+/bin/
+/lib/
+
+# 编译生成的文件
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+*.out
+
+# IDE和编辑器相关文件
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.vcxproj*
+*.filters
+*.sdf
+*.opensdf
+*.db
+
+# CMake生成的文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+*.cmake
+
+# 日志文件
+*.log
+*.tmp
+
+# 临时文件
+*.swp
+*.swo
+*~
+*.bak
+*.backup
+
+# 依赖管理工具生成的文件
+/vcpkg/
+/conan/
+/third_party/
+
+# 平台特定文件
+Thumbs.db
+Desktop.ini
+.DS_Store
