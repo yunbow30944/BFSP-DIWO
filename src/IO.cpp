@@ -4,7 +4,7 @@
 #define IO_SHOW_PROCESSING_DATA
 #include "IO.h"
 
-static const std::string datasetDirPath = "../../NEH/tests";
+static const std::string datasetDirPath = "../data/NEH/tests";
 // tests文件夹目录，默认程序在cmake-build-debug目录下，如果移动程序需要修改
 
 namespace IO {

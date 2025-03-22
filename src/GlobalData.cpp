@@ -42,26 +42,6 @@ GlobalData::GlobalData(const GlobalData &gDtmp):
         throw std::runtime_error("_dataMemoryPtr: Allocation error!");
 }
 
-//GlobalData& GlobalData::operator=(const GlobalData &gDtmp) {
-//    if(this == &gDtmp)
-//        return *this;
-//    this->n = gDtmp.n;
-//    this->m = gDtmp.m;
-//    this->indice = gDtmp.indice;
-//    this->total_processing_time = gDtmp.total_processing_time;
-//    this->processing_time = gDtmp.processing_time;
-//
-//    this->POP = gDtmp.POP;
-//    this->POP2 = gDtmp.POP2;
-//    this->best_seq = gDtmp.best_seq;
-//    this->bestmakespan = gDtmp.bestmakespan;
-//    this->k_max = gDtmp.k_max;
-//    this->P_max = gDtmp.P_max;
-//    this->pls = gDtmp.pls;
-//
-//    return *this;
-//}
-
 void GlobalData::resetData() {
     n = this->_dataMemoryPtr->n;
     m = this->_dataMemoryPtr->m;
