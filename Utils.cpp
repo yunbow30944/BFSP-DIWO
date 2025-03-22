@@ -85,7 +85,7 @@ void Utils::remove_non_improving_moves(const vector<vector<int>> &e, const vecto
 }
 
 void Utils::calculate_depature_time(vector<vector<int>> &e, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time)
-{
+{//right
     int m = processing_time[0].size() - 1;
     for (int i = begin; i <= end; ++i)
     {
@@ -99,7 +99,7 @@ void Utils::calculate_depature_time(vector<vector<int>> &e, const int begin, con
         {
             e[i][0] = e[i - 1][1];
             for (int j = 1; j <= m - 1; ++j)
-                e[i][j] = max(e[j][j - 1] + processing_time[order[i]][j], e[i - 1][j + 1]);
+                e[i][j] = max(e[i][j - 1] + processing_time[order[i]][j], e[i - 1][j + 1]);
         }
         e[i][m] = e[i][m - 1] + processing_time[order[i]][m];
     }
@@ -109,22 +109,22 @@ void Utils::caculate_tail_time(vector<vector<int>> &f, const int begin, const ve
 {
     int n = order.size() - 1;
     int m = processing_time[0].size() - 1;
-
-    for (int i = min(n, begin); i >= 1; --i)
+    for (int i = min(n, begin); i >= 1; --i)//
     {
         if (i == n)
         {
-            f[n][m] = processing_time[order[i]][m];
-            for (int j = m - 1; j >= 1; --j)
-                f[n][j] = f[n][j + 1] + processing_time[order[i]][j];
+            f[n][m+1]=0;
+            for (int j = m; j >= 2; --j)
+                f[n][j] = f[n][j + 1] + processing_time[order[n]][j];
         }
         else
         {
-            f[n][m] = processing_time[order[i]][m];
-            for (int j = m - 1; j >= 1; --j)
+            f[i][m+1] = f[i+1][m];
+            for (int j = m; j >= 2; --j)
                 f[i][j] = max(f[i][j + 1] + processing_time[order[i]][j], f[i + 1][j - 1]);
-            f[i][1] = f[i][2] + processing_time[order[i]][1];
+
         }
+        f[i][1] = f[i][2] + processing_time[order[i]][1];
     }
 }
 
