@@ -28,7 +28,7 @@ int main() {
     cout<<"================= ALG1 end =================\n"<<endl;
 
 
-    for (int k = 1; k <= globalData.k_max; k++) {//TODO:substitute k
+    for (int k = 1; k <= 1; k++) {//TODO:substitute k
         cout<<"================= ALG2 start =================\n"<<endl;
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();
@@ -38,21 +38,14 @@ int main() {
         cout<<"================= ALG2 end =================\n"<<endl;
 
         cout << "=================POP2 AFTER ALG2:====================" << endl;
-        for (const auto &v: globalData.POP2) {
-            for (auto e: v) {
-                cout << e << " ";
-            }
-            cout << endl;
-        }
+        Utils::print_pop(globalData.POP2);
         cout << "======================================================" << endl;
 
-        cout << "Best_now:" << endl;
-        for (const auto &v: globalData.best_seq) {
-            cout << v << " ";
-        }
-        cout << endl;
+        cout << "\nBest_after alg2:" << endl;
+        Utils::print_pi(globalData.best_seq);
 
 
+        cout<<"================= ALG3 start =================\n"<<endl;
         for (int i = 0; i < globalData.POP2.size(); ++i) {
             std::default_random_engine e(time(0));
             std::uniform_real_distribution<double> _rand(0, 1);
@@ -62,21 +55,20 @@ int main() {
                 globalData.POP2[i] = SRLS(globalData.POP2[i], globalData.best_seq);
             }
 
-            cout << "Best_now:" << endl;
-            for (const auto &v: globalData.best_seq) {
-                cout << v << " ";
-            }
-            cout << endl;
+            // cout << "Best_now:" << endl;
+            // for (const auto &v: globalData.best_seq) {
+            //     cout << v << " ";
+            // }
+            // cout << endl;
         }
+        cout<<"================= ALG3 end =================\n"<<endl;
 
+        cout<<"================= ALG4 start =================\n"<<endl;
         competitiveExclusion(globalData.POP, globalData.POP2, globalData.P_max);
+        cout<<"================= ALG4 end =================\n"<<endl;
+
         cout << "=================POP AFTER ALG4:====================" << endl;
-        for (const auto &v: globalData.POP) {
-            for (auto e: v) {
-                cout << e << " ";
-            }
-            cout << endl;
-        }
+        Utils::print_pop(globalData.POP);
         cout << "======================================================" << endl;
     }
 

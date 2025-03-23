@@ -44,33 +44,9 @@ vector<int> insert_lambda(const int lambda, vector<int> &pi_prime, vector<vector
     for (int i = n - lambda + 1; i <= n; ++i) {
         int job = pi_prime[i];
         int best_index;
-        int bestmakespan = INT_MAX;
-        for (int q = 1; q <= i; q++) {
-            //尝试所有位置
-            //cout << "Inserting job " << i << " into" << " position " << q << endl;
-            vector<int> e_prime_q(m + 1, 0);
-            int c_max = 0;
-            //计算出e'[q][k]
-            if (q == 1) {
-                e_prime_q[0] = 0;
-                for (int j = 1; j <= m - 1; ++j)
-                    e_prime_q[j] = e_prime_q[j - 1] + processing_time[job][j];
-            } else {
-                e_prime_q[0] = e_2[q - 1][1];
-                for (int j = 1; j <= m - 1; ++j)
-                    e_prime_q[j] = max(e_prime_q[j - 1] + processing_time[job][j], e_2[q - 1][j + 1]);
-            }
-            e_prime_q[m] = e_prime_q[m - 1] + processing_time[job][m];
-            //计算出makespan
-            for (int k = 1; k <= m; ++k)
-                c_max = max(c_max, e_prime_q[k] + f_2[q][k]);
-            //cout << "position " << q << ": ,c_max = " << c_max << endl;
-            //更新
-            if (c_max < bestmakespan) {
-                bestmakespan = c_max;
-                best_index = q;
-            }
-        }
+        int bestmakespan=INT_MAX;
+        pair<int,int> ans = Utils::neighbor_insertion(i-1,job,e_2,f_2,processing_time);
+        best_index = ans.first;bestmakespan = ans.second;
 #ifdef IO_SHOW_PROCESSING_DATA
         cout << "best index: " << best_index << ", best makespan = " << bestmakespan << endl;
 #endif

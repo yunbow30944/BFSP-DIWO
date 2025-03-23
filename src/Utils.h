@@ -41,6 +41,13 @@ public:
     static void sortAllpi(vector<vector<int> > &pop);
 
     static void shuffleArray(vector<int> &array);
+
+    static void print_pop(vector<vector<int>> pop);
+
+    static void print_pi(vector<int> order);
+
+    static pair<int, int> neighbor_insertion(int length, int job, vector<vector<int>> e_2, vector<vector<int>> f_2,
+                                      vector<vector<int>> processing_time);
 };
 
 #endif //UTILS_H

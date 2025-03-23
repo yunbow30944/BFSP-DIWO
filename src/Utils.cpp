@@ -4,6 +4,8 @@
 #include "Utils.h"
 
 #include <chrono>
+
+#include "GlobalData.h"
 using namespace std;
 
 void Utils::remove_non_improving_moves(const vector<vector<int>> &e, const vector<vector<int>> &f, const int c_max, vector<vector<int>> &V, const vector<int> order, const vector<vector<int>> processing_time) // 利用正反块去除掉没有意义的插入操作
@@ -255,4 +257,60 @@ void Utils::shuffleArray(std::vector<int> &array) {
         // 交换 array[i] 和 array[j]
         std::swap(array[i], array[j]);
     }
+}
+
+void Utils::print_pop(const vector<vector<int> > pop) {
+    cout<<"==================== pop now: ===================="<<endl;
+    for (int i = 0; i < pop.size(); ++i) {
+        for(int j = 0; j < pop[i].size(); ++j) {
+            cout << pop[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout<<"==================== end of pop ===================="<<endl;
+}
+void Utils::print_pi(vector<int> order) {
+    cout<<"=================== pi order: =================== "<<endl;
+    for(int i = 0; i < order.size(); ++i) {
+        cout << order[i] << " ";
+    }
+    cout<<endl;
+    cout<<"==================== end of pi order =================="<<endl;
+}
+
+//返回位置、makespan
+pair<int,int> Utils::neighbor_insertion(int length, int job, vector<vector<int> > e_2, vector<vector<int> > f_2, vector<vector<int> >processing_time) {
+    int m = globalData.m;
+    int best_index = -1;
+    int bestmakespan = INT_MAX;
+    for (int q = 1; q <= length+1; q++) {
+        //尝试所有位置
+        //cout << "Inserting job " << i << " into" << " position " << q << endl;
+        vector<int> e_prime_q(m + 1, 0);
+        int c_max = 0;
+        //计算出e'[q][k]
+        if (q == 1) {
+            e_prime_q[0] = 0;
+            for (int j = 1; j <= m - 1; ++j)
+                e_prime_q[j] = e_prime_q[j - 1] + processing_time[job][j];
+        } else {
+            e_prime_q[0] = e_2[q - 1][1];
+            for (int j = 1; j <= m - 1; ++j)
+                e_prime_q[j] = max(e_prime_q[j - 1] + processing_time[job][j], e_2[q - 1][j + 1]);
+        }
+        e_prime_q[m] = e_prime_q[m - 1] + processing_time[job][m];
+        //计算出makespan
+        for (int k = 1; k <= m; ++k) {
+            c_max = max(c_max, e_prime_q[k] + f_2[q][k]);
+            if(c_max >= bestmakespan) break;//剪枝
+        }
+
+        //cout << "position " << q << ": ,c_max = " << c_max << endl;
+        //更新
+        if (c_max < bestmakespan) {
+            bestmakespan = c_max;
+            best_index = q;
+        }
+    }
+    return make_pair(best_index, bestmakespan);
 }

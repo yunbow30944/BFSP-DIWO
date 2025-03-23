@@ -10,9 +10,10 @@ using namespace std;
 vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
     //TODO: optimize
     int n = globalData.n;
-    //cout<<"n = "<<n<<endl;
-    int cnt = 1, j = 0, flag = 0;
+    int m = globalData.m;
+    vector<vector<int> > processing_time = globalData.processing_time;
 
+    int cnt = 1, j = 0, flag = 0;
     do {
         while (cnt < n) {
             j = (j % n) + 1; // 计算 pi_r 的位置，模运算循环
@@ -23,21 +24,16 @@ vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
             if (it != pi_prime.end()) {
                 pi_prime.erase(it);
             }
+            vector<vector<int> > e_2(n + 1, vector<int>(m + 1, 0));
+            Utils::calculate_departure_time(e_2, 1, n - 1, pi_prime, processing_time); //得到初始的e''
+
+            vector<vector<int> > f_2(n + 1, vector(m + 2, 0));
+            Utils::calculate_tail_time(f_2, n - 1, 1, pi_prime, processing_time); //得到初始的f''
 
             int bestfit = INT_MAX;
             int keypos = -1;
-
-            //尝试所有位置
-            for (int i = 1; i <= n; ++i) {
-                vector<int> pi_double_prime = pi_prime;
-                pi_double_prime.insert(pi_double_prime.begin() + i, pi_r[j]);
-
-                int cost = Utils::calculate(pi_double_prime, globalData.processing_time);
-                if (cost < bestfit) {
-                    bestfit = cost;
-                    keypos = i;
-                }
-            }
+            pair<int,int> ans = Utils::neighbor_insertion(n-1,pi_r[j],e_2,f_2,processing_time);
+            keypos = ans.first;bestfit = ans.second;
 
             //更新
             if (pi[0] > bestfit) {
