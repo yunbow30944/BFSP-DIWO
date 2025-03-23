@@ -10,35 +10,41 @@
 #include "Test.h"
 #include "Utils.h"
 
+// int main0() {
+//     // IO::getBestSeqAndSave();
+//     // IO::getARPDAndSave(10);
+//
+//     Test::makespanTest(1);
+//     return 0;
+// }
+
 int main() {
-    // IO::getBestSeqAndSave();
-    // IO::getARPDAndSave(10);
-
-    Test::makespanTest(1);
-    return 0;
-}
-
-int main0() {
     // 设置全局数据
     globalData.setData();
     ALG2::Sigma sig;
+    cout<<"================= ALG1 start =================\n"<<endl;
     // 调用 ALG1
     ALG1(10, 10);
+    cout<<"================= ALG1 end =================\n"<<endl;
+
 
     for (int k = 1; k <= globalData.k_max; k++) {//TODO:substitute k
+        cout<<"================= ALG2 start =================\n"<<endl;
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {
             spatialDispersal(k, s, 0, 5);
         }
-        // cout << "=================POP2 AFTER ALG2:====================" << endl;
-        // for (const auto &v: globalData.POP2) {
-        //     for (auto e: v) {
-        //         cout << e << " ";
-        //     }
-        //     cout << endl;
-        // }
-        // cout << "======================================================" << endl;
+        cout<<"================= ALG2 end =================\n"<<endl;
+
+        cout << "=================POP2 AFTER ALG2:====================" << endl;
+        for (const auto &v: globalData.POP2) {
+            for (auto e: v) {
+                cout << e << " ";
+            }
+            cout << endl;
+        }
+        cout << "======================================================" << endl;
 
         cout << "Best_now:" << endl;
         for (const auto &v: globalData.best_seq) {
@@ -62,6 +68,7 @@ int main0() {
             }
             cout << endl;
         }
+
         competitiveExclusion(globalData.POP, globalData.POP2, globalData.P_max);
         cout << "=================POP AFTER ALG4:====================" << endl;
         for (const auto &v: globalData.POP) {

@@ -112,16 +112,16 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
                 vector<vector<int>> f(n + 1, vector<int>(m + 2, 0));
                 vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
 
-                Utils::calculate_depature_time(e, 1, n, order, processing_time);
-                Utils::caculate_tail_time(f, 1, order, processing_time);
+                Utils::calculate_departure_time(e, 1, n, order, processing_time);
+                Utils::calculate_tail_time(f, 1,1, order, processing_time);//
                 int best_time = f[1][1];
-                Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
+                //Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
 
                 vector<vector<int>> e_2 = e;
                 vector<vector<int>> f_2 = f;
 
-                Utils::calculate_depature_time(e_2, n, n - 1, pi_new, processing_time);
-                Utils::caculate_tail_time(f_2, n, pi_new, processing_time);
+                Utils::calculate_departure_time(e_2, n, n - 1, pi_new, processing_time);
+                Utils::calculate_tail_time(f_2, n, 1, pi_new, processing_time);
 
                 for (int pos = 1; pos < pi_new.size(); pos++)
                 {
@@ -130,7 +130,7 @@ vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_m
                     {
                         vector<vector<int>> e_1 = e_2;
                         pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-                        Utils::calculate_depature_time(e_1, pos, pos, pi_new, processing_time);
+                        Utils::calculate_departure_time(e_1, pos, pos, pi_new, processing_time);
                         int t = Utils::calculate_makespan(pos, e_1, f_2);
                         if (t < best_time)
                         {
@@ -167,64 +167,23 @@ vector<vector<int> > spatialDispersal(vector<int> s, const double sigma_min, con
     sig.calculate_sigma_i_k();
 
     for (int i = 0; i < pop.size(); ++i) {
-        for (int j = 0; j < s[i]; j++) {
+        for (int j = 0; j < s[i]; j++) {//适应度S，种子数
             int d = generate_d(sig, i, sigma_min, sigma_max);
             vector<int> pi_R;
             vector<int> pi_new(pop[i]);
-            for (int m = 0; m < d; m++) {
+            for (int m = 0; m < d; m++) {//随机移走d个
                 std::default_random_engine e(time(0));
                 std::uniform_int_distribution<int> _rand(1, pi_new.size() - 1);
                 int position = _rand(e);
                 pi_R.push_back(pi_new[position]);
                 pi_new.erase(pi_new.begin() + position);
             }
-            Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//TODO: 升序真的好吗？
+            Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//升序排序
 
-            for (int l = 0; l < d; l++)
+            for (int l = 0; l < d; l++)//移走的d个重新放回去
             {
-                vector<int> best_pi, order = pi_new;
-                order.push_back(pi_R[l]);//order是pi序列，pi_new是pi''序列，插入后变成pi'序列
 
-                int n = order.size() - 1;
-                int m = processing_time[0].size() - 1;
-                
-                vector<vector<int>> e(n + 1, vector<int>(m + 1, 0));
-                vector<vector<int>> f(n + 1, vector<int>(m + 2, 0));
-                vector<vector<int>> V(n + 1, vector<int>(n + 1, 1));
-
-                Utils::calculate_depature_time(e, 1, n, order, processing_time);
-                Utils::caculate_tail_time(f, 1, order, processing_time);
-                int best_time = f[1][1];
-                Utils::remove_non_improving_moves(e, f, best_time, V, order, processing_time);
-
-                vector<vector<int>> e_2 = e;
-                vector<vector<int>> f_2 = f;
-
-                Utils::calculate_depature_time(e_2, n,n - 1, pi_new, processing_time);
-                Utils::caculate_tail_time(f_2, n, pi_new, processing_time);
-
-                for (int pos = 1; pos < pi_new.size(); pos++)
-                {
-                    pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-                    if(V[n][pos])
-                    {
-                        vector<vector<int>> e_1 = e_2;
-                        pi_new.insert(pi_new.begin() + pos, pi_R[l]);
-                        Utils::calculate_depature_time(e_1, pos, pos, pi_new, processing_time);
-                        int t = Utils::calculate_makespan(pos, e_1, f_2);
-                        if (t<best_time)
-                        {
-                            best_time = t;
-                            best_pi = pi_new;
-                        }
-                    }
-                    pi_new.erase(pi_new.begin() + pos);
-                }
-
-                pi_new = best_pi;
-                pi_new[0] = best_time;
             }
-
             globalData.POP2.push_back(pi_new);
         }
     }

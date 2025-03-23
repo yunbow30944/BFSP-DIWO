@@ -84,8 +84,9 @@ void Utils::remove_non_improving_moves(const vector<vector<int>> &e, const vecto
         }
 }
 
-void Utils::calculate_depature_time(vector<vector<int>> &e, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time)
-{//right
+//从前向后，更新第begin个到第end个job的离开时间e
+void Utils::calculate_departure_time(vector<vector<int>> &e, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time)
+{
     int m = processing_time[0].size() - 1;
     for (int i = begin; i <= end; ++i)
     {
@@ -105,11 +106,12 @@ void Utils::calculate_depature_time(vector<vector<int>> &e, const int begin, con
     }
 }
 
-void Utils::caculate_tail_time(vector<vector<int>> &f, const int begin, const vector<int> &order, const vector<vector<int>> &processing_time)
+//从后向前，更新第begin个到第end个job的tail time f
+void Utils::calculate_tail_time(vector<vector<int>> &f, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time)
 {
     int n = order.size() - 1;
     int m = processing_time[0].size() - 1;
-    for (int i = min(n, begin); i >= 1; --i)//
+    for (int i = min(n, begin); i >= end; --i)//
     {
         if (i == n)
         {
@@ -137,7 +139,7 @@ int Utils::calculate_makespan(const int q, const vector<vector<int>> &e_1, const
     return c_max;
 }
 
-//计算完工时间
+//计算完工时间,old
 int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {
     int n = order.size() - 1; // 任务数量 (job count)
     int m = processing_time[0].size() - 1; // 机器数量 (machine count)
@@ -172,10 +174,10 @@ int Utils::calculate(const vector<int> &order, const vector<vector<int> > &proce
     return d[n][m];
 }
 
-// 计算阻塞和空闲时间之和，可优化,需修改
+// 计算阻塞和空闲时间之和
 vector<vector<int> > Utils::calculate_v(int &v, const int i, const vector<int> &order, vector<vector<int> > d,
                                         const vector<vector<int> > &processing_time) {
-    int m = processing_time[0].size() - 1; // 机器数量 (machine count)
+    int m = processing_time[0].size() - 1; // 机器数量
 
     d[i][0] = d[i - 1][1];
 

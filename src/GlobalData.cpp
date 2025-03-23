@@ -3,6 +3,7 @@
 //
 #include "GlobalData.h"
 #include "Utils.h"
+#define IO_SHOW_PROCESSING_DATA
 using namespace std;
 
 void GlobalData::setData() {
@@ -21,11 +22,14 @@ void GlobalData::setData() {
             total_processing_time[j] += processing_time[j][i]; // 更新总处理时间
         }
     Utils::sort_by_tot_processing_time(indice,total_processing_time);
-    // for(auto e: indice) {
-    //     std::cout << e << " ";
-    // }
+#ifdef IO_SHOW_PROCESSING_DATA
+    cout<<"The initial order :\n";
+    for(auto e: indice) {
+        std::cout << e << " ";
+    }
+    cout<<endl;
+#endif
 }
-
 GlobalData::GlobalData(const GlobalData &gDtmp):
     n(gDtmp.n), m(gDtmp.m),
     processing_time(gDtmp.processing_time),

@@ -6,85 +6,106 @@
 #include "Utils.h"
 #include "GlobalData.h"
 #include "IO.h"
-
+//#define IO_SHOW_PROCESSING_DATA
 using namespace std;
 
-vector<int> NEH_PI(const int lambda, const int n, vector<int> &Best_Sequence,
-                   const vector<vector<int>> &processing_time)
-{
-    int m = processing_time[0].size() - 1;
+//后lambda个job向前插入，评估makespan
+vector<int> insert_lambda(const int lambda, vector<int> &pi_prime, vector<vector<int> > d) {
+    vector<vector<int> > processing_time = globalData.processing_time;
+    int n = globalData.n;
+    int m = globalData.m;
+
     vector<int> order(n - lambda + 1, 0);
-    copy(Best_Sequence.begin() + 1, Best_Sequence.begin() + n - lambda, order.begin() + 1);
-    int bestmakespan = INT_MAX;
+    copy(pi_prime.begin() + 1, pi_prime.begin() + n - lambda + 1, order.begin() + 1);
 
-    for (int i = n - lambda + 1; i <= n; ++i)
-    {
-        vector<vector<int>> e(i + 1, vector<int>(m + 1, 0)), f_2(i + 1, vector(m + 2, 0));
+    vector<vector<int> > e_2(n + 1, vector<int>(m + 1, 0));
+    copy(d.begin() + 1, d.begin() + n - lambda + 1, e_2.begin() + 1); //得到初始的e''
+    vector<vector<int> > f_2(n + 1, vector(m + 2, 0));
+    Utils::calculate_tail_time(f_2, n - lambda, 1, order, processing_time); //得到初始的f''
 
-        int index = i;
+#ifdef IO_SHOW_PROCESSING_DATA
+    cout << "Init e'':" << endl;
+    for (auto ele: e_2) {
+        for (auto element: ele) {
+            cout << element << " ";
+        }
+        cout << endl;
+    }
+    cout << "Init f'':" << endl;
+    for (auto ele: f_2) {
+        for (auto element: ele) {
+            cout << element << " ";
+        }
+        cout << endl;
+    }
+#endif
 
-        vector<int> temp_order = order;    // pi''
-        order.push_back(Best_Sequence[i]); // pi
-        Utils::calculate_depature_time(e, 1, i, order, processing_time);
-
-        // vector<vector<int>> e_2(i+1,vector<int>(m+1,0)),f(i+1,vector<int>(m+1,0));
-        // Utils::caculate_tail_time(f, i, order, processing_time); //f似乎不需要算
-
-        bestmakespan = e[i][m];
-
-        // printf("e[i][m]-f[1][1] = %d\n", e[i][m] - f[1][1]);
-
-        // e_2 = e; //用e代替e_2
-        // f_2 = f;
-        // // 不用计算e_2，因为i是pi序列中最后一位，恒大于j
-        Utils::caculate_tail_time(f_2, i, temp_order, processing_time);
-
-        for (int q = 1; q < i - 1; ++q)
-        {
-            vector<vector<int>> e_1 = e;
-            temp_order.insert(temp_order.begin() + q, order[i]); // pi'
-            Utils::calculate_depature_time(e_1, q, q, temp_order, processing_time);
-
-            int makespan = Utils::calculate_makespan(q, e, f_2);
-
-            // int true_makespan = Utils::calculate(temp_order, processing_time);
-            // printf("true_makespan - makespan: %d\n", true_makespan - makespan);
-
-            temp_order.erase(temp_order.begin() + q);
-
-            if (makespan < bestmakespan)
-            {
-                bestmakespan = makespan;
-                index = q;
+    //对所有待插入job
+    for (int i = n - lambda + 1; i <= n; ++i) {
+        int job = pi_prime[i];
+        int best_index;
+        int bestmakespan = INT_MAX;
+        for (int q = 1; q <= i; q++) {
+            //尝试所有位置
+            //cout << "Inserting job " << i << " into" << " position " << q << endl;
+            vector<int> e_prime_q(m + 1, 0);
+            int c_max = 0;
+            //计算出e'[q][k]
+            if (q == 1) {
+                e_prime_q[0] = 0;
+                for (int j = 1; j <= m - 1; ++j)
+                    e_prime_q[j] = e_prime_q[j - 1] + processing_time[job][j];
+            } else {
+                e_prime_q[0] = e_2[q - 1][1];
+                for (int j = 1; j <= m - 1; ++j)
+                    e_prime_q[j] = max(e_prime_q[j - 1] + processing_time[job][j], e_2[q - 1][j + 1]);
+            }
+            e_prime_q[m] = e_prime_q[m - 1] + processing_time[job][m];
+            //计算出makespan
+            for (int k = 1; k <= m; ++k)
+                c_max = max(c_max, e_prime_q[k] + f_2[q][k]);
+            //cout << "position " << q << ": ,c_max = " << c_max << endl;
+            //更新
+            if (c_max < bestmakespan) {
+                bestmakespan = c_max;
+                best_index = q;
             }
         }
-
-        if (index != i)
-        {
-            int indice = order[i];
-            order.erase(order.begin() + i);
-            order.insert(order.begin() + index, indice);
-        }
+#ifdef IO_SHOW_PROCESSING_DATA
+        cout << "best index: " << best_index << ", best makespan = " << bestmakespan << endl;
+#endif
+        order.insert(order.begin()+best_index, job);//更新order
+        Utils::calculate_departure_time(e_2, best_index, i, order, processing_time);//更新e''
+        //新f''的[best_index+1,i]用原f''的[best_index,i-1]
+        copy(f_2.begin() + best_index, f_2.begin() + i, f_2.begin() + best_index + 1);
+        Utils::calculate_tail_time(f_2, best_index, 1, order, processing_time);//更新f''
+        if(i==n) order[0] = bestmakespan;
     }
-
-    order[0] = bestmakespan;
+    //int true_makespan = Utils::calculate(order,processing_time);
+    //cout<<"true_makespan = "<<true_makespan<<endl;
+#ifdef IO_SHOW_PROCESSING_DATA
+    cout<<"one order:"<<endl;
+    for(int i=0;i<order.size();i++) {
+        cout << order[i] << " ";
+    }
+    cout << endl;
+#endif
     return order;
 }
 
-// 初始化种群，生成一个初始的优良序列，需修改
-vector<int> Population_Initialization(const int lambda, const int k, const vector<vector<int> > &processing_time,
-                                      vector<int> indice) {
+// 生成一个序列
+vector<int> generate_one(const int lambda, const int k, vector<int> indice) {
     int n = indice.size() - 1; // 组件数量
     vector<int> order(2, 0); // 初始化顺序
-    int m = processing_time[0].size() - 1; // 机器数量 (machine count)
+
+    vector<vector<int> > processing_time = globalData.processing_time;
+    int m = processing_time[0].size() - 1; // 机器数量
     vector<vector<int> > d(n + 1, vector<int>(m + 1, 0));
 
     order[1] = indice[k]; //初始化
 
-    // 初始化
+    // 计算d[1][_]
     d[1][0] = 0;
-
-    // 计算d[1][j]
     for (int j = 1; j <= m; ++j) {
         d[1][j] = d[1][j - 1] + processing_time[order[1]][j];
     }
@@ -115,27 +136,46 @@ vector<int> Population_Initialization(const int lambda, const int k, const vecto
         d = d_best;
         indice.erase(indice.begin() + best_indice); // 移除已插入的组件
     }
-    return NEH_PI(lambda, n, order, processing_time); // 使用 NEH_PI 算法优化顺序
+#ifdef IO_SHOW_PROCESSING_DATA
+    cout << "The order of pi'" << endl;
+    for (auto e: order) {
+        cout << e << " ";
+    }
+    cout << endl;
+
+    cout << "The departure time:" << endl;
+    for (int i = 1; i <= n; i++) {
+        cout << "job" << i << ": ";
+        for (int j = 1; j <= m; j++) {
+            cout << d[i][j] << " ";
+        }
+        cout << endl;
+    }
+#endif
+
+    return insert_lambda(lambda, order, d); // 后lambda个job依次插入前面的位置
 }
 
 
 vector<vector<int> > ALG1(int N0, int lambda, int x) {
     // 初始化最佳顺序
-    vector<int> Best_sequence = Population_Initialization(lambda, 1, globalData.processing_time, globalData.indice);
-
-    for (int i = 2; i <= x; ++i) // 生成 x 种顺序并选择最佳
+    int min_makespan = inf;
+    vector<int> best_sequence;
+    for (int i = 1; i <= x; ++i) // 生成 x 种顺序并选择最佳
     {
-        vector<int> sequence = Population_Initialization(lambda, i, globalData.processing_time, globalData.indice);
-        if (sequence[0] < Best_sequence[0])
-            Best_sequence = sequence; //选取最优
+        vector<int> sequence = generate_one(lambda, i, globalData.indice);
+        if (sequence[0] < min_makespan) {
+            best_sequence = sequence; //选取最优
+            min_makespan = sequence[0];
+        }
     }
-    globalData.POP.push_back(Best_sequence); //加入种群
+    globalData.POP.push_back(best_sequence); //加入种群
 
     // 输出最佳顺序及其最优时间跨度
     cout << "sequence:";
     for (int i = 1; i <= globalData.n; ++i)
-        cout << " " << Best_sequence[i];
-    cout << endl << "minmakespan:" << Best_sequence[0] << endl;
+        cout << " " << best_sequence[i];
+    cout << endl << "minmakespan:" << best_sequence[0] << endl;
 
     //完成种群初始化
     for (int i = 2; i <= N0; i++) {
@@ -156,16 +196,16 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
     globalData.best_seq = globalData.POP[0];
     globalData.bestmakespan = globalData.best_seq[0];
 
-#ifdef IO_SHOW_PROCESSING_DATA
+//#ifdef IO_SHOW_PROCESSING_DATA
     //测试POP
-    cout<<"=================POP AFTER ALG1:===================="<<endl;
+    cout << "================= POP AFTER ALG1: ======================" << endl;
     for (const auto &ele: globalData.POP) {
         for (auto e: ele) {
             cout << e << " ";
         }
         cout << endl;
     }
-    cout<<"====================================================="<<endl;
-#endif
+    cout << "=======================================================" << endl;
+//#endif
     return globalData.POP;
 }

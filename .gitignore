@@ -2,7 +2,6 @@
 .vscode
 .DS_Store
 ./*/DS_Store
-./cmake-build-debug
 .idea
 # 构建输出目录
 /build/
@@ -59,3 +58,4 @@ CTestTestfile.cmake
 Thumbs.db
 Desktop.ini
 .DS_Store
+/cmake-build-debug/*
