@@ -71,11 +71,11 @@ vector<int> insert_lambda(const int lambda, vector<int> &pi_prime, vector<vector
 
 // 生成一个序列
 vector<int> generate_one(const int lambda, const int k, vector<int> indice) {
-    int n = indice.size() - 1; // 组件数量
+    int n = globalData.n;
     vector<int> order(2, 0); // 初始化顺序
 
     vector<vector<int> > processing_time = globalData.processing_time;
-    int m = processing_time[0].size() - 1; // 机器数量
+    int m = globalData.m;
     vector<vector<int> > d(n + 1, vector<int>(m + 1, 0));
 
     order[1] = indice[k]; //初始化

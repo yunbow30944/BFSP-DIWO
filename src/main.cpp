@@ -28,7 +28,7 @@ int main() {
     cout<<"================= ALG1 end =================\n"<<endl;
 
 
-    for (int k = 1; k <= 1; k++) {//TODO:substitute k
+    for (int k = 1; k <= 10; k++) {//TODO:substitute k
         cout<<"================= ALG2 start =================\n"<<endl;
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();

@@ -8,7 +8,7 @@
 using namespace std;
 
 vector<int> SRLS(vector<int> pi, vector<int> pi_r) {
-    //TODO: optimize
+
     int n = globalData.n;
     int m = globalData.m;
     vector<vector<int> > processing_time = globalData.processing_time;
