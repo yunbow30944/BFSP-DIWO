@@ -15,7 +15,7 @@ namespace ALG2 {
     // 单位：毫秒
     // const int t_max = 30;
     // const int t_max = 60;
-    const int t_max = 90;
+    const int t_max = 9000;
 
     const double epsilon = 1e-9;
     const vector<int> S_MIN{0, 1, 2};
@@ -58,8 +58,8 @@ namespace ALG2 {
                 this->pop.push_back(i);
         }
 
-        clock_t getRunTime() const {
-            return clock()-this->start;
+        inline int getRunTime() const {
+            return (clock()-this->start)/CLOCKS_PER_SEC*1000;
         }
     };
     int generate_d(Sigma &sigma, int i, const double sigma_min, const double sigma_max);

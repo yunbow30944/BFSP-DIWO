@@ -29,11 +29,13 @@ int main() {
 
 
     for (int k = 1; k <= 10; k++) {//TODO:substitute k
+    // while(sig.getRunTime() <= ALG2::t_max){
         cout<<"================= ALG2 start =================\n"<<endl;
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {
             spatialDispersal(k, s, 0, 5);
+			// spatialDispersal(s, 0, 5, sig);
         }
         cout<<"================= ALG2 end =================\n"<<endl;
 
