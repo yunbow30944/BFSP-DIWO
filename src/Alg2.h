@@ -13,9 +13,10 @@ using namespace std;
 
 namespace ALG2 {
     // 单位：毫秒
-    // const int t_max = 30;
-    // const int t_max = 60;
-    const int t_max = 9000;
+    // const int rho = 30;
+    // const int rho = 60;
+    const int rho = 9000;
+    extern int t_max;
 
     const double epsilon = 1e-9;
     const vector<int> S_MIN{0, 1, 2};

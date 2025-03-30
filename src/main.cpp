@@ -10,6 +10,9 @@
 #include "Test.h"
 #include "Utils.h"
 
+int ALG2::t_max;
+
+
 // int main0() {
 //     // IO::getBestSeqAndSave();
 //     // IO::getARPDAndSave(10);
@@ -21,6 +24,10 @@
 int main() {
     // 设置全局数据
     globalData.setData();
+    
+    // 设置CPU最大运行时间
+    ALG2::t_max = ALG2::rho * globalData.m * globalData.n;
+
     ALG2::Sigma sig;
     cout<<"================= ALG1 start =================\n"<<endl;
     // 调用 ALG1
