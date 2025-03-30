@@ -1,0 +1,3 @@
+/Users/zhouyujie/Developer/Research/BFSP/build/CMakeFiles/project.dir
+/Users/zhouyujie/Developer/Research/BFSP/build/CMakeFiles/edit_cache.dir
+/Users/zhouyujie/Developer/Research/BFSP/build/CMakeFiles/rebuild_cache.dir
