@@ -15,7 +15,7 @@ namespace ALG2 {
     // 单位：毫秒
     // const int rho = 30;
     // const int rho = 60;
-    const int rho = 9000;
+    const int rho = 90;
     extern int t_max;
 
     const double epsilon = 1e-9;
