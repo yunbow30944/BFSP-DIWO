@@ -3,7 +3,7 @@
 //
 #include "GlobalData.h"
 #include "Utils.h"
-#define IO_SHOW_PROCESSING_DATA
+//#define IO_SHOW_PROCESSING_DATA
 using namespace std;
 
 void GlobalData::setData() {

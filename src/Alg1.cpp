@@ -147,12 +147,13 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
     }
     globalData.POP.push_back(best_sequence); //加入种群
 
+#ifdef IO_SHOW_PROCESSING_DATA
     // 输出最佳顺序及其最优时间跨度
     cout << "sequence:";
     for (int i = 1; i <= globalData.n; ++i)
         cout << " " << best_sequence[i];
     cout << endl << "minmakespan:" << best_sequence[0] << endl;
-
+#endif
     //完成种群初始化
     for (int i = 2; i <= N0; i++) {
         vector<int> seq;
@@ -172,16 +173,5 @@ vector<vector<int> > ALG1(int N0, int lambda, int x) {
     globalData.best_seq = globalData.POP[0];
     globalData.bestmakespan = globalData.best_seq[0];
 
-//#ifdef IO_SHOW_PROCESSING_DATA
-    //测试POP
-    cout << "================= POP AFTER ALG1: ======================" << endl;
-    for (const auto &ele: globalData.POP) {
-        for (auto e: ele) {
-            cout << e << " ";
-        }
-        cout << endl;
-    }
-    cout << "=======================================================" << endl;
-//#endif
     return globalData.POP;
 }

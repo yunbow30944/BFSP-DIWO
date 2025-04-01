@@ -9,9 +9,8 @@
 #include "IO.h"
 #include "Test.h"
 #include "Utils.h"
-
+#define NO_IO_ALL
 int ALG2::t_max;
-
 
 // int main0() {
 //     // IO::getBestSeqAndSave();
@@ -29,21 +28,36 @@ int main() {
     ALG2::t_max = ALG2::rho * globalData.m * globalData.n;
 
     ALG2::Sigma sig;
+#ifndef NO_IO_ALL
     cout<<"================= ALG1 start =================\n"<<endl;
+#endif
     // 调用 ALG1
     ALG1(10, 10);
+#ifndef NO_IO_ALL
     cout<<"================= ALG1 end =================\n"<<endl;
 
+    cout << "================= POP AFTER ALG1: ======================" << endl;
+    for (const auto &ele: globalData.POP) {
+        for (auto e: ele) {
+            cout << e << " ";
+        }
+        cout << endl;
+    }
+    cout << "=======================================================" << endl;
 
+#endif
     // for (int k = 1; k <= 10; k++) {//TODO:substitute k
     while(sig.getRunTime() <= ALG2::t_max){
+#ifndef NO_IO_ALL
         cout<<"================= ALG2 start =================\n"<<endl;
+#endif
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {
             // spatialDispersal(k, s, 0, 5);
 			spatialDispersal(s, 0, 5, sig);
         }
+#ifndef NO_IO_ALL
         cout<<"================= ALG2 end =================\n"<<endl;
 
         cout << "=================POP2 AFTER ALG2:====================" << endl;
@@ -53,8 +67,8 @@ int main() {
         cout << "\nBest_after alg2:" << endl;
         Utils::print_pi(globalData.best_seq);
 
-
         cout<<"================= ALG3 start =================\n"<<endl;
+#endif
         for (int i = 0; i < globalData.POP2.size(); ++i) {
             std::default_random_engine e(time(0));
             std::uniform_real_distribution<double> _rand(0, 1);
@@ -70,15 +84,19 @@ int main() {
             // }
             // cout << endl;
         }
+#ifndef NO_IO_ALL
         cout<<"================= ALG3 end =================\n"<<endl;
 
         cout<<"================= ALG4 start =================\n"<<endl;
+#endif
         competitiveExclusion(globalData.POP, globalData.POP2, globalData.P_max);
+#ifndef NO_IO_ALL
         cout<<"================= ALG4 end =================\n"<<endl;
 
         cout << "=================POP AFTER ALG4:====================" << endl;
         Utils::print_pop(globalData.POP);
         cout << "======================================================" << endl;
+#endif
     }
 
     cout << "Best_seq_all:";
