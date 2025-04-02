@@ -7,7 +7,6 @@
 #include "Alg3.h"
 #include "Alg4.h"
 #include "IO.h"
-#include "Test.h"
 #include "Utils.h"
 #define NO_IO_ALL
 int ALG2::t_max;

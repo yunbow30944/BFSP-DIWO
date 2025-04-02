@@ -144,7 +144,7 @@ vector<vector<int> > spatialDispersal(vector<int> s, const double sigma_min, con
     int m = globalData.m;
     int n = globalData.n;
 
-    sig.resetPOP(pop);
+    //sig.resetPOP(pop);
 
     sig.sigma_k = sig.calculate_sigma_k(sigma_min, sigma_max);
 
