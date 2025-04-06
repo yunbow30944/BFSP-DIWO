@@ -20,7 +20,7 @@ vector<int> insert_lambda(const int lambda, vector<int> &pi_prime, vector<vector
 
     vector<vector<int> > e_2(n + 1, vector<int>(m + 1, 0));
     copy(d.begin() + 1, d.begin() + n - lambda + 1, e_2.begin() + 1); //得到初始的e''
-    vector<vector<int> > f_2(n + 1, vector(m + 2, 0));
+    vector<vector<int> > f_2(n + 1, vector<int>(m + 2, 0));
     Utils::calculate_tail_time(f_2, n - lambda, 1, order, processing_time); //得到初始的f''
 
 #ifdef IO_SHOW_PROCESSING_DATA
