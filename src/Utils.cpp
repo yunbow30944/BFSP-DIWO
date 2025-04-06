@@ -132,15 +132,6 @@ void Utils::calculate_tail_time(vector<vector<int>> &f, const int begin, const i
     }
 }
 
-int Utils::calculate_makespan(const int q, const vector<vector<int>> &e_1, const vector<vector<int>> &f_2)
-{
-    int c_max = 0;
-    int m = e_1[0].size() - 1;
-    for (int k = 1; k <= m; ++k)
-        c_max = max(c_max, e_1[q][k] + f_2[q][k]);
-    return c_max;
-}
-
 //计算完工时间,old
 int Utils::calculate(const vector<int> &order, const vector<vector<int> > &processing_time) {
     int n = order.size() - 1; // 任务数量 (job count)
