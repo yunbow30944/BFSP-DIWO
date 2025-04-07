@@ -63,6 +63,7 @@ namespace IO {
      * 使用算法运行单个实例，与main函数主体大致相同
      */
     void runSingleExample() {
+        ALG2::t_max = ALG2::rho * globalData.m * globalData.n;
         ALG2::Sigma sig;
         ALG1(10, 10);
         // for (int k = 1; k <= globalData.k_max; k++) {//TODO:substitute k

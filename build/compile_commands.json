@@ -1,50 +1,50 @@
 [
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/Alg1.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/Alg1.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/Alg1.cpp",
-  "output": "CMakeFiles/project.dir/src/Alg1.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\Alg1.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\Alg1.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/Alg1.cpp",
+  "output": "CMakeFiles/project.dir/src/Alg1.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/Alg2.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/Alg2.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/Alg2.cpp",
-  "output": "CMakeFiles/project.dir/src/Alg2.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\Alg2.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\Alg2.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/Alg2.cpp",
+  "output": "CMakeFiles/project.dir/src/Alg2.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/Alg3.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/Alg3.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/Alg3.cpp",
-  "output": "CMakeFiles/project.dir/src/Alg3.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\Alg3.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\Alg3.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/Alg3.cpp",
+  "output": "CMakeFiles/project.dir/src/Alg3.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/Alg4.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/Alg4.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/Alg4.cpp",
-  "output": "CMakeFiles/project.dir/src/Alg4.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\Alg4.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\Alg4.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/Alg4.cpp",
+  "output": "CMakeFiles/project.dir/src/Alg4.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/GlobalData.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/GlobalData.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/GlobalData.cpp",
-  "output": "CMakeFiles/project.dir/src/GlobalData.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\GlobalData.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\GlobalData.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/GlobalData.cpp",
+  "output": "CMakeFiles/project.dir/src/GlobalData.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/main.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/main.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/main.cpp",
-  "output": "CMakeFiles/project.dir/src/main.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\main.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\main.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/main.cpp",
+  "output": "CMakeFiles/project.dir/src/main.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/Utils.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/Utils.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/Utils.cpp",
-  "output": "CMakeFiles/project.dir/src/Utils.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\Utils.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\Utils.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/Utils.cpp",
+  "output": "CMakeFiles/project.dir/src/Utils.cpp.obj"
 },
 {
-  "directory": "/Users/zhouyujie/Developer/Research/BFSP/build",
-  "command": "/usr/bin/clang++  -I/Users/zhouyujie/Developer/Research/BFSP/src -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6 -o CMakeFiles/project.dir/src/IO.cpp.o -c /Users/zhouyujie/Developer/Research/BFSP/src/IO.cpp",
-  "file": "/Users/zhouyujie/Developer/Research/BFSP/src/IO.cpp",
-  "output": "CMakeFiles/project.dir/src/IO.cpp.o"
+  "directory": "D:/HUSTWorkfield/BFSP/build",
+  "command": "E:\\ProgrammeFiles\\mingw64\\bin\\g++.exe  @CMakeFiles/project.dir/includes_CXX.rsp -g -o CMakeFiles\\project.dir\\src\\IO.cpp.obj -c D:\\HUSTWorkfield\\BFSP\\src\\IO.cpp",
+  "file": "D:/HUSTWorkfield/BFSP/src/IO.cpp",
+  "output": "CMakeFiles/project.dir/src/IO.cpp.obj"
 }
 ]
