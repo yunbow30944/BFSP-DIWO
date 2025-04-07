@@ -58,6 +58,6 @@ CTestTestfile.cmake
 Thumbs.db
 Desktop.ini
 .DS_Store
-/cmake-build-debug/*
-/cmake-build-debug/
+cmake-build-debug/*
+cmake-build-debug/
 /build/
