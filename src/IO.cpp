@@ -70,7 +70,7 @@ namespace IO {
             vector<int> s = reproduction(0, 7);
             globalData.POP2.clear();
             for (int i = 1; i <= globalData.P_max; i++) {
-                spatialDispersal(s, 0, 5, sig);
+                spatialDispersal(s, 5, 10, sig);
             }
 
 #ifdef IO_SHOW_PROCESSING_DATA
@@ -123,7 +123,7 @@ namespace IO {
 
     /*
      * @filePath: 文件路径
-     * 读取制定文件路径下的文件并运行算法，
+     * 读取指定文件路径下的文件并运行算法，
      * 将得到的序列存入文件
      */
     void singleFileProcess(const std::string& filePath, std::ofstream& fileOut) {

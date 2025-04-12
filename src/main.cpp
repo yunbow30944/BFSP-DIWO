@@ -54,7 +54,7 @@ int main() {
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {
             // spatialDispersal(k, s, 0, 5);
-			spatialDispersal(s, 0, 5, sig);
+			spatialDispersal(s, 5, 10, sig);
         }
 #ifndef NO_IO_ALL
         cout<<"================= ALG2 end =================\n"<<endl;
@@ -77,11 +77,6 @@ int main() {
                 globalData.POP2[i] = SRLS(globalData.POP2[i], globalData.best_seq);
             }
 
-            // cout << "Best_now:" << endl;
-            // for (const auto &v: globalData.best_seq) {
-            //     cout << v << " ";
-            // }
-            // cout << endl;
         }
 #ifndef NO_IO_ALL
         cout<<"================= ALG3 end =================\n"<<endl;
