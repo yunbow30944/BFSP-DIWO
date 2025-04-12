@@ -19,7 +19,13 @@ int ALG2::t_max;
 //     return 0;
 // }
 
-int main() {
+int main(){
+    IO::getBestSeqAndSave();
+
+    return 0;
+}
+
+int main0() {
     // 设置全局数据
     globalData.setData();
     
