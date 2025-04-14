@@ -20,7 +20,8 @@ int ALG2::t_max;
 // }
 
 int main(){
-    IO::getBestSeqAndSave();
+    // IO::getBestSeqAndSave();
+    IO::getARPD_BestSeqAndSave(3);
 
     return 0;
 }

@@ -36,6 +36,7 @@ namespace IO {
     pair<int, int> loadMemory(const GlobalData &memory);
     void singleFileProcessWithARPD(const std::string &filePath, std::ofstream &file, const std::unordered_map<std::string, std::vector<int>> &C_min_map, const int &R);
     void getARPDAndSave(const int &R);
+    void getARPD_BestSeqAndSave(const int &R);
 };
 
 

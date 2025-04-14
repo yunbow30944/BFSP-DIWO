@@ -132,24 +132,30 @@ namespace IO {
         if (!file.is_open())
             throw domain_error(filePath + " not found!");
         string line;
-        fileOut << "======================================================" << std::endl
-                << "File Name: " << filePath << "\n" << std::endl;
+        // TODO: 移除无用代码
+        // fileOut << "======================================================" << std::endl
+                // << "File Name: " << filePath << "\n" << std::endl;
         int cnt = 1;
         while (std::getline(file, line)) {
             globalData.resetData();
             auto[jobNum, machineNum] = setData(file);   // 设置globalData
             runSingleExample(); // 使用算法跑当前数据集样例
             // 保存数据
-            fileOut << "Num of jobs: " << jobNum << std::endl
-                    << "Num of machines: " << machineNum << std::endl
-                    << "Dataset: " << cnt << std::endl;
+            fileOut << filePath << "," << jobNum << "," << machineNum << "," << cnt << ",";
+
+            // TODO: 移除无用代码
+            // fileOut << "Num of jobs: " << jobNum << std::endl
+                    // << "Num of machines: " << machineNum << std::endl
+                    // << "Dataset: " << cnt << std::endl;
             cnt ++;
-            fileOut << "Best_seq_all: " << std::endl;
+            // TODO:移除无用代码
+            // fileOut << "Best_seq_all: " << std::endl;
             for (const auto &i: globalData.best_seq)
-                fileOut << i << " ";
-            fileOut << "\n" << std::endl;
+                fileOut << i << ",";
+            fileOut << "\n";
         }
-        fileOut << "======================================================" << std::endl;
+        // TODO:移除无用代码
+        // fileOut << "======================================================" << std::endl;
         file.close();
     }
 
@@ -161,8 +167,8 @@ namespace IO {
             throw std::domain_error("Invalid datasetDirPath!");
         }
 
-        std::ofstream fileOut("bestSequence.txt", std::ios::app);
-
+        std::ofstream fileOut("bestSequence.csv", std::ios::app);
+        fileOut << "File path,Num of jobs,Num of machines,Dataset,Best sequence of all" << std::endl;
         // 遍历目录
         for (const auto& entry : std::filesystem::directory_iterator(datasetDirPath)) {
             if (std::filesystem::is_regular_file(entry.status())) { // 判断是否是文件
@@ -171,6 +177,7 @@ namespace IO {
                 std::cout << "Processing file: " << filePath << std::endl;
 #endif
                 singleFileProcess(filePath, fileOut);
+                fileOut.flush();
             }
         }
         fileOut.close();
@@ -330,6 +337,45 @@ namespace IO {
     }
 
     /*
+     *  @filePath: 数据集文件路径
+     *  @fileOut: 输出文件流
+     *  @C_min_map: 存储C_min
+     *  @R: 单个数据集的运行次数
+     *  处理计算单个文件的ARPD，其中每个ARPD都是单次算例的ARPD
+     */
+    void singleFileProcessWithARPD_SingleRun(const std::string &filePath, std::ofstream &fileOut, std::unordered_map<std::string, std::vector<int>> &C_min_map, const int &R){
+        std::ifstream file(filePath);
+        if(!file.is_open())
+            throw std::domain_error(filePath+" not found!");
+        string line;
+        // TODO: 移除无用代码
+        // fileOut << "======================================================\n"
+                // << "File Name: " << filePath << "\n" << std::endl;
+        int cnt = 1;
+        while(std::getline(file, line)){
+            globalData.resetData();
+            auto[jobNum, machineNum] = setData(file);
+            // TODO: 移除无用代码
+            // fileOut << "Num of jobs: " << jobNum << std::endl
+                    // << "Num of machines: " << machineNum << std::endl
+                    // << "Dataset: " << cnt << std::endl;
+            GlobalData memory(globalData);
+            std::string datasetName = to_string(jobNum) + "*" + to_string(machineNum);
+            for(int i = 0; i < R; i ++){
+                double ARPD_Result = run_single_ARPD_Calculate(1, C_min_map[datasetName][cnt], memory);
+                fileOut << filePath << "," << jobNum << "," << machineNum << "," << cnt << "," << ARPD_Result << ",";
+                for(const auto& i: globalData.best_seq)
+                    fileOut << i << ",";
+                fileOut << "\n";
+            }
+            cnt++;
+        }
+        // TODO: 移除无用代码
+        // fileOut << "======================================================" << std::endl;
+        file.close();
+    }
+
+    /*
      * @R: 计算ARPD时的运行次数
      * 用于计算ARPD并存储
      */
@@ -393,6 +439,78 @@ namespace IO {
                 std::cout << "Processing file: " << filePath << std::endl;
 #endif
                 singleFileProcessWithARPD(filePath, fileOut, C_min_map, R);
+            }
+        }
+
+        fileOut.close();
+    }
+
+    /*
+     * @R: 计算ARPD时的运行次数
+     * 用于计算ARPD并存储ARPD与BestSequence
+     */
+    void getARPD_BestSeqAndSave(const int &R){
+        if(!std::filesystem::exists(datasetDirPath) || !std::filesystem::is_directory(datasetDirPath))
+            throw std::domain_error("Invalid datasetDirPath!");
+
+        std::ofstream fileOut("BestSeq_ARPD.csv", std::ios::app);
+
+        writeC_min();
+        // C_min_map用于存储C_min序列，std::string用于存储数据集的名称n*m，std::vector用于存储第几个数据集存储的C_min
+        std::unordered_map<std::string, std::vector<int>> C_min_map;
+
+        // 使用正则表达式提取出文件名中算例大小并可将算例大小加入map中
+        std::regex pattern("t_j(\\d+)_m(\\d+)\\.txt");
+        std::smatch match;
+
+        // 填充C_min_map
+        // 遍历目录
+        for (const auto& entry : std::filesystem::directory_iterator(datasetDirPath)) {
+            if (std::filesystem::is_regular_file(entry.status())) { // 判断是否是文件
+                std::string fileName = entry.path().filename().string();
+                if(std::regex_match(fileName, match, pattern)){
+                    std::string datasetName = match[1].str() + "*" + match[2].str();
+                    std::vector<int> C_min;
+                    C_min.push_back(-1);    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    C_min_map.insert({datasetName, C_min});
+                }
+            }
+        }
+        // 从cmin_standard.txt中加载标准Cmin
+        ifstream CminFile("cmin_standard.txt");
+        if(!CminFile.is_open())
+            throw std::runtime_error("cmin_standard.txt missing!");
+        std::string line;
+        std::getline(CminFile, line);
+        while(std::getline(CminFile, line)){
+            std::string datasetName1, datasetName2, datasetName3;
+            istringstream iss_dataset(line);
+            iss_dataset >> datasetName1 >> datasetName2 >> datasetName3;
+            for(int i = 0; i < 10; i ++){
+                std::getline(CminFile, line);
+                istringstream iss(line);
+                std::string cmin1, cmin2, cmin3, trash;
+                iss
+                    >> trash >> cmin1 >> trash >> trash
+                    >> trash >> cmin2 >> trash >> trash
+                    >> trash >> cmin3 >> trash >> trash;
+                C_min_map[datasetName1].push_back(std::stoi(cmin1));
+                C_min_map[datasetName2].push_back(std::stoi(cmin2));
+                C_min_map[datasetName3].push_back(std::stoi(cmin3));
+            }
+        }
+
+        // 计算每个文件中的所有的数据集的ARPD并与最佳序列一起保存
+        // 遍历目录
+        fileOut << "File path,Num of jobs,Num of machines,Dataset,ARPD,Best sequence of all" << std::endl;
+        for (const auto& entry : std::filesystem::directory_iterator(datasetDirPath)) {
+            if (std::filesystem::is_regular_file(entry.status())) { // 判断是否是文件
+                string filePath = datasetDirPath +'/'+ entry.path().filename().string();
+#ifdef IO_SHOW_PROCESSING_FILE
+                std::cout << "Processing file: " << filePath << std::endl;
+#endif
+                singleFileProcessWithARPD_SingleRun(filePath, fileOut, C_min_map, R);
+                fileOut.flush();
             }
         }
 
