@@ -33,16 +33,14 @@ namespace ALG2 {
         return justify_d(d, globalData.n, sigma_min, sigma_max);//?
     }
 
-
-    double Sigma::calculate_sigma_k(int k, double sigma_min, double sigma_max) const {
-        return sigma_min + (1 - (k - 1) / (globalData.k_max - 1 + epsilon)) * (sigma_max - sigma_min);
-    }
+    // double Sigma::calculate_sigma_k(int k, double sigma_min, double sigma_max) const {
+    //     return sigma_min + (1 - (k - 1) / (globalData.k_max - 1 + epsilon)) * (sigma_max - sigma_min);
+    // }
 
     // 重载calculate_sigma_k
     double Sigma::calculate_sigma_k(double sigma_min, double sigma_max) const {
         return (1-(static_cast<double>(clock()-start))/t_max)*(sigma_max-sigma_min)+sigma_min;
     }
-
 
     void Sigma::calculate_sigma_i_k() {
         vector<vector<int> > &pop = globalData.POP;
@@ -75,67 +73,67 @@ vector<int> reproduction(const int S_min, const int S_max) {
     return s;
 }
 
-vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_min, const double sigma_max) {
-    vector<vector<int> > &pop = globalData.POP;
-    const vector<vector<int> > processing_time = globalData.processing_time;
-    int m = globalData.m;
-    int n = globalData.n;
-
-    ALG2::Sigma sig(pop); //构造sig实例对象
-
-    sig.sigma_k = sig.calculate_sigma_k(k, sigma_min, sigma_max); //TODO:substitute k
-
-    sig.calculate_sigma_i_k();
-
-    for (int i = 0; i < pop.size(); ++i) {//对pop中每个个体
-        for (int j = 0; j < s[i]; j++) {//适应度S，种子数
-            int d = generate_d(sig, i, sigma_min, sigma_max);
-            vector<int> pi_R;
-            vector<int> pi_new(pop[i]);
-            for (int k = 0; k < d; k++) {//随机移走d个
-                std::default_random_engine e(time(0));
-                std::uniform_int_distribution<int> _rand(1, pi_new.size() - 1);
-                int position = _rand(e);
-                pi_R.push_back(pi_new[position]);
-                pi_new.erase(pi_new.begin() + position);
-            }
-            Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//升序排序
-
-            vector<vector<int> > e_2(n + 1, vector<int>(m + 1, 0));
-            Utils::calculate_departure_time(e_2, 1, n - d, pi_new, processing_time); //得到初始的e''
-
-            vector<vector<int> > f_2(n + 1, vector(m + 2, 0));
-            Utils::calculate_tail_time(f_2, n - d, 1, pi_new, processing_time); //得到初始的f''
-
-            for (int l = 0; l < d; l++){//移走的d个重新放回去
-                int job = pi_R[l];
-                int best_index;
-                int bestmakespan = INT_MAX;
-                pair<int,int> ans = Utils::neighbor_insertion(n-d+l,job,e_2,f_2,processing_time);
-                best_index = ans.first;bestmakespan = ans.second;
-#ifdef IO_SHOW_PROCESSING_DATA
-                cout << "best index: " << best_index << ", best makespan = " << bestmakespan << endl;
-#endif
-                pi_new.insert(pi_new.begin()+best_index, job);//更新order
-                Utils::calculate_departure_time(e_2, best_index, n-d+l+1, pi_new, processing_time);//更新e''
-                //新f''的[best_index+1,n-d+l+1]用原f''的[best_index,n-d+l]
-                copy(f_2.begin() + best_index, f_2.begin() +n-d+l+1 , f_2.begin() + best_index + 1);
-                Utils::calculate_tail_time(f_2, best_index, 1, pi_new, processing_time);//更新f''
-                if(l==d-1) pi_new[0] = bestmakespan;
-            }
-            //int truemakespan = Utils::calculate(pi_new,globalData.processing_time);
-            //cout<<"truemakespan = "<<truemakespan<<endl;
-            //Utils::print_pi(pi_new);
-            globalData.POP2.push_back(pi_new);//加入POP'
-        }
-    }
-    vector<int> bestseq = Utils::findBestpi(globalData.POP2);
-    if (bestseq[0] < globalData.bestmakespan) {
-        globalData.bestmakespan = bestseq[0];
-        globalData.best_seq = bestseq;
-    }
-    return globalData.POP2;
-}
+// vector<vector<int> > spatialDispersal(int k, vector<int> s, const double sigma_min, const double sigma_max) {
+//     vector<vector<int> > &pop = globalData.POP;
+//     const vector<vector<int> > processing_time = globalData.processing_time;
+//     int m = globalData.m;
+//     int n = globalData.n;
+//
+//     ALG2::Sigma sig(pop); //构造sig实例对象
+//
+//     sig.sigma_k = sig.calculate_sigma_k(k, sigma_min, sigma_max); //TODO:substitute k
+//
+//     sig.calculate_sigma_i_k();
+//
+//     for (int i = 0; i < pop.size(); ++i) {//对pop中每个个体
+//         for (int j = 0; j < s[i]; j++) {//适应度S，种子数
+//             int d = generate_d(sig, i, sigma_min, sigma_max);
+//             vector<int> pi_R;
+//             vector<int> pi_new(pop[i]);
+//             for (int k = 0; k < d; k++) {//随机移走d个
+//                 std::default_random_engine e(time(0));
+//                 std::uniform_int_distribution<int> _rand(1, pi_new.size() - 1);
+//                 int position = _rand(e);
+//                 pi_R.push_back(pi_new[position]);
+//                 pi_new.erase(pi_new.begin() + position);
+//             }
+//             Utils::sort_by_tot_processing_time(pi_R, globalData.total_processing_time);//升序排序
+//
+//             vector<vector<int> > e_2(n + 1, vector<int>(m + 1, 0));
+//             Utils::calculate_departure_time(e_2, 1, n - d, pi_new, processing_time); //得到初始的e''
+//
+//             vector<vector<int> > f_2(n + 1, vector(m + 2, 0));
+//             Utils::calculate_tail_time(f_2, n - d, 1, pi_new, processing_time); //得到初始的f''
+//
+//             for (int l = 0; l < d; l++){//移走的d个重新放回去
+//                 int job = pi_R[l];
+//                 int best_index;
+//                 int bestmakespan = INT_MAX;
+//                 pair<int,int> ans = Utils::neighbor_insertion(n-d+l,job,e_2,f_2,processing_time);
+//                 best_index = ans.first;bestmakespan = ans.second;
+// #ifdef IO_SHOW_PROCESSING_DATA
+//                 cout << "best index: " << best_index << ", best makespan = " << bestmakespan << endl;
+// #endif
+//                 pi_new.insert(pi_new.begin()+best_index, job);//更新order
+//                 Utils::calculate_departure_time(e_2, best_index, n-d+l+1, pi_new, processing_time);//更新e''
+//                 //新f''的[best_index+1,n-d+l+1]用原f''的[best_index,n-d+l]
+//                 copy(f_2.begin() + best_index, f_2.begin() +n-d+l+1 , f_2.begin() + best_index + 1);
+//                 Utils::calculate_tail_time(f_2, best_index, 1, pi_new, processing_time);//更新f''
+//                 if(l==d-1) pi_new[0] = bestmakespan;
+//             }
+//             //int truemakespan = Utils::calculate(pi_new,globalData.processing_time);
+//             //cout<<"truemakespan = "<<truemakespan<<endl;
+//             //Utils::print_pi(pi_new);
+//             globalData.POP2.push_back(pi_new);//加入POP'
+//         }
+//     }
+//     vector<int> bestseq = Utils::findBestpi(globalData.POP2);
+//     if (bestseq[0] < globalData.bestmakespan) {
+//         globalData.bestmakespan = bestseq[0];
+//         globalData.best_seq = bestseq;
+//     }
+//     return globalData.POP2;
+// }
 
 vector<vector<int> > spatialDispersal(vector<int> s, const double sigma_min, const double sigma_max, ALG2::Sigma &sig) {
     vector<vector<int> > &pop = globalData.POP;

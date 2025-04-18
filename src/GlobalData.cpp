@@ -59,7 +59,6 @@ void GlobalData::resetData() {
     k_max = this->_dataMemoryPtr->k_max;
     P_max = this->_dataMemoryPtr->P_max;
     pls = this->_dataMemoryPtr->pls;
-
 }
 
 // 定义全局数据对象

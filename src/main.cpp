@@ -20,9 +20,7 @@ int ALG2::t_max;
 // }
 
 int main(){
-    // IO::getBestSeqAndSave();
     IO::getARPD_BestSeqAndSave(3);
-
     return 0;
 }
 
@@ -37,22 +35,15 @@ int main0() {
 #ifndef NO_IO_ALL
     cout<<"================= ALG1 start =================\n"<<endl;
 #endif
-    // 调用 ALG1
     ALG1(10, 10);
 #ifndef NO_IO_ALL
     cout<<"================= ALG1 end =================\n"<<endl;
 
     cout << "================= POP AFTER ALG1: ======================" << endl;
-    for (const auto &ele: globalData.POP) {
-        for (auto e: ele) {
-            cout << e << " ";
-        }
-        cout << endl;
-    }
+    Utils::print_pop(globalData.POP);
     cout << "=======================================================" << endl;
-
 #endif
-    // for (int k = 1; k <= 10; k++) {//TODO:substitute k
+
     while(sig.getRunTime() <= ALG2::t_max){
 #ifndef NO_IO_ALL
         cout<<"================= ALG2 start =================\n"<<endl;
@@ -60,7 +51,6 @@ int main0() {
         vector<int> s = reproduction(0, 7);
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++) {
-            // spatialDispersal(k, s, 0, 5);
 			spatialDispersal(s, 5, 10, sig);
         }
 #ifndef NO_IO_ALL
@@ -100,11 +90,10 @@ int main0() {
 #endif
     }
 
-    cout << "Best_seq_all:";
-    for (const auto &v: globalData.best_seq) {
-        cout << v << " ";
-    }
-    cout << endl;
+#ifdef IO_SHOW_FINAL_RESULT
+    cout << "Best_seq_all:"<<endl;
+    Utils::print_pi(globalData.best_seq);
+#endif
 
     return 0;
 }
