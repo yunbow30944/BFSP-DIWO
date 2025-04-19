@@ -93,11 +93,11 @@ namespace IO
             cout << "================= ALG2 start =================\n"
                  << endl;
 #endif
-            vector<int> s = reproduction(0, 7);
+            vector<int> s = reproduction(GlobalData::S_MIN, GlobalData::S_MAX);
             globalData.POP2.clear();
             for (int i = 1; i <= globalData.P_max; i++)
             {
-                spatialDispersal(s, 5, 10, sig);
+                spatialDispersal(s, GlobalData::SIGMA_MIN, GlobalData::SIGMA_MAX, sig);
             }
 #ifndef NO_IO_ALL
             cout << "================= ALG2 end =================\n"

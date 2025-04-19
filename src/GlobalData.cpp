@@ -37,17 +37,15 @@ GlobalData::GlobalData(const GlobalData &gDtmp):
     indice(gDtmp.indice), POP(gDtmp.POP),
     POP2(gDtmp.POP2), best_seq(gDtmp.best_seq),
     bestmakespan(gDtmp.bestmakespan),
-    k_max(gDtmp.k_max), P_max(gDtmp.P_max),
+    k_max(gDtmp.k_max), 
     pls(gDtmp.pls),
-    lambda(gDtmp.lambda), rho(gDtmp.rho),
-    S_MIN(gDtmp.S_MIN), S_MAX(gDtmp.S_MAX),
-    SIGMA_MIN(gDtmp.SIGMA_MIN), SIGMA_MAX(gDtmp.SIGMA_MAX){
+    lambda(gDtmp.lambda), rho(gDtmp.rho)
+    {
     _dataMemoryPtr = new _dataMemory(n, m, processing_time, total_processing_time,
                                      indice, POP, POP2, best_seq, bestmakespan,
                                      k_max, P_max, pls,
-                                     lambda, rho,
-                                     S_MIN, S_MAX,
-                                     SIGMA_MIN, SIGMA_MAX);
+                                     lambda, rho
+                                     );
     if(_dataMemoryPtr == nullptr)
         throw std::runtime_error("_dataMemoryPtr: Allocation error!");
 }
@@ -67,10 +65,6 @@ void GlobalData::resetData() {
     pls = this->_dataMemoryPtr->pls;
     lambda = this->_dataMemoryPtr->lambda;
     rho = this->_dataMemoryPtr->rho;
-    S_MIN = this->_dataMemoryPtr->S_MIN;
-    S_MAX = this->_dataMemoryPtr->S_MAX;
-    SIGMA_MIN = this->_dataMemoryPtr->SIGMA_MIN;
-    SIGMA_MAX = this->_dataMemoryPtr->SIGMA_MAX;
 }
 
 // 定义全局数据对象

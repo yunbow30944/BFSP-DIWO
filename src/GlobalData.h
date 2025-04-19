@@ -32,16 +32,27 @@ public:
 
     int lambda;
     int rho;
-    vector<int> S_MIN, S_MAX;
-    vector<int> SIGMA_MIN, SIGMA_MAX;
+
+    inline const static vector<int> P_MAX_ARRAY = {10, 20, 30};
+    inline const static vector<int> S_MIN_ARRAY = {0, 1, 2};
+    inline const static vector<int> S_MAX_ARRAY = {5, 7, 9};
+    inline const static vector<int> SIGMA_MIN_ARRAY = {4, 5, 6};
+    inline const static vector<int> SIGMA_MAX_ARRAY = {8, 9, 10};
+    inline const static vector<double> PLS_ARRAY = {0.15, 0.25, 0.35};
+    inline const static vector<int> RHO_ARRAY = {90}; //{30, 60, 90};
+    
+    inline static int S_MIN;
+    inline static int S_MAX;
+    inline static int SIGMA_MIN;
+    inline static int SIGMA_MAX;
 
     // 构造函数
-    GlobalData() : n(0), m(0), k_max(50), P_max(10), pls(0.15), lambda(25), rho(10), S_MIN({0, 1, 2}), S_MAX({5, 7, 9}), SIGMA_MIN({3, 4, 5}), SIGMA_MAX({8, 9, 10}),
+    GlobalData() : n(0), m(0), k_max(50), P_max(10), pls(0.15), lambda(25), rho(10), 
         _dataMemoryPtr(new _dataMemory(n, m, processing_time, total_processing_time,
                                       indice, POP, POP2, best_seq, bestmakespan,
                                       k_max, P_max, pls,
-                                      lambda, rho,
-                                      S_MIN, S_MAX, SIGMA_MIN, SIGMA_MAX)){//p_max=10
+                                      lambda, rho
+                                      )){//p_max=10
         if(_dataMemoryPtr == nullptr)
             throw std::domain_error("_dataMemoryPtr allocation failed!");
     }
@@ -84,8 +95,6 @@ private:
 
         const int lambda;
         const int rho;
-        const vector<int> S_MIN, S_MAX;
-        const vector<int> SIGMA_MIN, SIGMA_MAX;
 
     public:
         _dataMemory(const int &n, const int &m, const vector<vector<int>> &processing_time,
@@ -93,9 +102,8 @@ private:
             const vector<vector<int>> &POP, const vector<vector<int>> &POP2,
             const vector<int> &best_seq, const int &bestmakespan, const int &k_max,
             const int &P_max, const double &pls,
-            const int &lambda, const int &rho,
-            const vector<int> &S_MIN, const vector<int> &S_MAX,
-            const vector<int> &SIGMA_MIN, const vector<int> &SIGMA_MAX):
+            const int &lambda, const int &rho
+            ):
                 n(n), m(m),
                 processing_time(processing_time),
                 total_processing_time(total_processing_time),
@@ -104,9 +112,8 @@ private:
                 bestmakespan(bestmakespan),
                 k_max(k_max), P_max(P_max),
                 pls(pls),
-                lambda(lambda), rho(rho),
-                S_MIN(S_MIN), S_MAX(S_MAX),
-                SIGMA_MIN(SIGMA_MIN), SIGMA_MAX(SIGMA_MAX){}
+                lambda(lambda), rho(rho)
+                {}
     };
 
 private:
