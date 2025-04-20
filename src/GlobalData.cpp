@@ -37,17 +37,15 @@ GlobalData::GlobalData(const GlobalData &gDtmp):
     indice(gDtmp.indice), POP(gDtmp.POP),
     POP2(gDtmp.POP2), best_seq(gDtmp.best_seq),
     bestmakespan(gDtmp.bestmakespan),
-    k_max(gDtmp.k_max), 
+    P_max(gDtmp.P_max),lambda(gDtmp.lambda), x(gDtmp.x),
     pls(gDtmp.pls),
-    lambda(gDtmp.lambda), rho(gDtmp.rho)
-    {
+    S_MIN(gDtmp.S_MIN),S_MAX(gDtmp.S_MAX),
+    SIGMA_MIN(gDtmp.SIGMA_MIN),SIGMA_MAX(gDtmp.SIGMA_MAX),
+    rho(gDtmp.rho)
+{
     _dataMemoryPtr = new _dataMemory(n, m, processing_time, total_processing_time,
-                                     indice, POP, POP2, best_seq, bestmakespan,
-                                     k_max, P_max, pls,
-                                     lambda, rho
-                                     );
-    if(_dataMemoryPtr == nullptr)
-        throw std::runtime_error("_dataMemoryPtr: Allocation error!");
+                                  indice, POP, POP2, best_seq, bestmakespan,
+                                  lambda, x, P_max, S_MIN, S_MAX, SIGMA_MIN, SIGMA_MAX, pls, rho);
 }
 
 void GlobalData::resetData() {
@@ -60,10 +58,14 @@ void GlobalData::resetData() {
     POP2 = this->_dataMemoryPtr->POP2;
     best_seq = this->_dataMemoryPtr->best_seq;
     bestmakespan = this->_dataMemoryPtr->bestmakespan;
-    k_max = this->_dataMemoryPtr->k_max;
     P_max = this->_dataMemoryPtr->P_max;
-    pls = this->_dataMemoryPtr->pls;
     lambda = this->_dataMemoryPtr->lambda;
+    x = this->_dataMemoryPtr->x;
+    pls = this->_dataMemoryPtr->pls;
+    S_MIN = this->_dataMemoryPtr->S_MIN;
+    S_MAX = this->_dataMemoryPtr->S_MAX;
+    SIGMA_MIN = this->_dataMemoryPtr->SIGMA_MIN;
+    SIGMA_MAX = this->_dataMemoryPtr->SIGMA_MAX;
     rho = this->_dataMemoryPtr->rho;
 }
 

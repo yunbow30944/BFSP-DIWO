@@ -16,14 +16,11 @@ using namespace std;
 
 class Utils {
 public:
-    // 工具函数示例：打印二维向量
     static void remove_non_improving_moves(const vector<vector<int>> &e, const vector<vector<int>> &f, const int c_max, vector<vector<int>> &V, const vector<int> order, const vector<vector<int>> processing_time);
 
     static void calculate_tail_time(vector<vector<int>> &f, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time);
 
     static void calculate_departure_time(vector<vector<int>> &e, const int begin, const int end, const vector<int> &order, const vector<vector<int>> &processing_time);
-
-    static int calculate_makespan(const int q, const vector<vector<int>> &e_1, const vector<vector<int>> &f_2);
 
     static int calculate(const vector<int> &order, const vector<vector<int>> &processing_time);
 

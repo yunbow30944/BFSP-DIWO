@@ -10,10 +10,12 @@
 using namespace std;
 
 //后lambda个job向前插入，评估makespan
-vector<int> insert_lambda(const int lambda, vector<int> &pi_prime, vector<vector<int> > d) {
+vector<int> insert_lambda(int lambda, vector<int> &pi_prime, vector<vector<int> > d) {
     vector<vector<int> > processing_time = globalData.processing_time;
     int n = globalData.n;
     int m = globalData.m;
+
+    lambda = min(lambda, n - 1); //防止lambda太大
 
     vector<int> order(n - lambda + 1, 0);
     copy(pi_prime.begin() + 1, pi_prime.begin() + n - lambda + 1, order.begin() + 1);
@@ -44,18 +46,19 @@ vector<int> insert_lambda(const int lambda, vector<int> &pi_prime, vector<vector
     for (int i = n - lambda + 1; i <= n; ++i) {
         int job = pi_prime[i];
         int best_index;
-        int bestmakespan=INT_MAX;
-        pair<int,int> ans = Utils::neighbor_insertion(i-1,job,e_2,f_2,processing_time);
-        best_index = ans.first;bestmakespan = ans.second;
+        int bestmakespan = INT_MAX;
+        pair<int, int> ans = Utils::neighbor_insertion(i - 1, job, e_2, f_2, processing_time);
+        best_index = ans.first;
+        bestmakespan = ans.second;
 #ifdef IO_SHOW_PROCESSING_DATA
         cout << "best index: " << best_index << ", best makespan = " << bestmakespan << endl;
 #endif
-        order.insert(order.begin()+best_index, job);//更新order
-        Utils::calculate_departure_time(e_2, best_index, i, order, processing_time);//更新e''
+        order.insert(order.begin() + best_index, job); //更新order
+        Utils::calculate_departure_time(e_2, best_index, i, order, processing_time); //更新e''
         //新f''的[best_index+1,i]用原f''的[best_index,i-1]
         copy(f_2.begin() + best_index, f_2.begin() + i, f_2.begin() + best_index + 1);
-        Utils::calculate_tail_time(f_2, best_index, 1, order, processing_time);//更新f''
-        if(i==n) order[0] = bestmakespan;
+        Utils::calculate_tail_time(f_2, best_index, 1, order, processing_time); //更新f''
+        if (i == n) order[0] = bestmakespan;
     }
     //int true_makespan = Utils::calculate(order,processing_time);
     //cout<<"true_makespan = "<<true_makespan<<endl;
@@ -131,7 +134,6 @@ vector<int> generate_one(const int lambda, const int k, vector<int> indice) {
 
     return insert_lambda(lambda, order, d); // 后lambda个job依次插入前面的位置
 }
-
 
 vector<vector<int> > ALG1(int N0, int lambda, int x) {
     // 初始化最佳顺序

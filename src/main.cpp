@@ -10,6 +10,7 @@
 #include "Utils.h"
 #include "Test.h"
 #define NO_IO_ALL
+#define IO_SHOW_FINAL_RESULT
 int ALG2::t_max;
 
 // int main0() {
@@ -20,14 +21,14 @@ int ALG2::t_max;
 //     return 0;
 // }
 
-int main()
+int main0()
 {
     // IO::getARPD_BestSeqAndSave(3);
     Test::test(3);
     return 0;
 }
 
-int main0()
+int main()
 {
     // 设置全局数据
     globalData.setData();
@@ -40,7 +41,7 @@ int main0()
     cout << "================= ALG1 start =================\n"
          << endl;
 #endif
-    ALG1(10, 10);
+    ALG1(globalData.P_max, globalData.lambda,globalData.x);
 #ifndef NO_IO_ALL
     cout << "================= ALG1 end =================\n"
          << endl;
@@ -56,11 +57,11 @@ int main0()
         cout << "================= ALG2 start =================\n"
              << endl;
 #endif
-        vector<int> s = reproduction(GlobalData::S_MIN, GlobalData::S_MAX);
+        vector<int> s = reproduction(globalData.S_MIN, globalData.S_MAX);
         globalData.POP2.clear();
         for (int i = 1; i <= globalData.P_max; i++)
         {
-            spatialDispersal(s, GlobalData::SIGMA_MIN, GlobalData::SIGMA_MAX, sig);
+            spatialDispersal(s, globalData.SIGMA_MIN, globalData.SIGMA_MAX, sig);
         }
 #ifndef NO_IO_ALL
         cout << "================= ALG2 end =================\n"

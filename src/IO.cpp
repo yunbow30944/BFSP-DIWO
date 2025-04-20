@@ -77,7 +77,7 @@ namespace IO
         cout << "================= ALG1 start =================\n"
              << endl;
 #endif
-        ALG1(10, 10);
+        ALG1(globalData.P_max, globalData.lambda,globalData.x);
 #ifndef NO_IO_ALL
         cout << "================= ALG1 end =================\n"
              << endl;
@@ -93,11 +93,11 @@ namespace IO
             cout << "================= ALG2 start =================\n"
                  << endl;
 #endif
-            vector<int> s = reproduction(GlobalData::S_MIN, GlobalData::S_MAX);
+            vector<int> s = reproduction(globalData.S_MIN, globalData.S_MAX);
             globalData.POP2.clear();
             for (int i = 1; i <= globalData.P_max; i++)
             {
-                spatialDispersal(s, GlobalData::SIGMA_MIN, GlobalData::SIGMA_MAX, sig);
+                spatialDispersal(s, globalData.SIGMA_MIN, globalData.SIGMA_MAX, sig);
             }
 #ifndef NO_IO_ALL
             cout << "================= ALG2 end =================\n"
