@@ -13,22 +13,14 @@
 #define IO_SHOW_FINAL_RESULT
 int ALG2::t_max;
 
-// int main0() {
-//     // IO::getBestSeqAndSave();
-//     // IO::getARPDAndSave(10);
-//
-//     Test::makespanTest(1);
-//     return 0;
-// }
-
-int main0()
+int main()
 {
     // IO::getARPD_BestSeqAndSave(3);
     Test::test(3);
     return 0;
 }
 
-int main()
+int main0()
 {
     // 设置全局数据
     globalData.setData();
@@ -41,7 +33,7 @@ int main()
     cout << "================= ALG1 start =================\n"
          << endl;
 #endif
-    ALG1(globalData.P_max, globalData.lambda,globalData.x);
+    ALG1(globalData.P_max, globalData.lambda, globalData.x);
 #ifndef NO_IO_ALL
     cout << "================= ALG1 end =================\n"
          << endl;

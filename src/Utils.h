@@ -43,6 +43,8 @@ public:
 
     static void print_pi(vector<int> order);
 
+    static double ARPD(const int &R, const int &C_min, const vector<int> &C_i);
+
     static pair<int, int> neighbor_insertion(int length, int job, vector<vector<int>> e_2, vector<vector<int>> f_2,
                                       vector<vector<int>> processing_time);
 };

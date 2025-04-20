@@ -30,15 +30,13 @@ namespace IO {
     void singleFileProcess(const std::string& filePath, std::ofstream& fileOut);
     void runSingleExample();
     void getBestSeqAndSave();
-    void writeC_min();
-    double ARPD(const int &R, const int &C_min, const vector<int> &C_i);
+    //void writeC_min();
     double run_single_ARPD_Calculate(const int &R, const int &C_min, const GlobalData &memory);
     pair<int, int> loadMemory(const GlobalData &memory);
     void singleFileProcessWithARPD(const std::string &filePath, std::ofstream &file, const std::unordered_map<std::string, std::vector<int>> &C_min_map, const int &R);
-    void getARPDAndSave(const int &R);
+    //void getARPDAndSave(const int &R);
     void getARPD_BestSeqAndSave(const int &R);
 };
-
 
 
 #endif //IO_H

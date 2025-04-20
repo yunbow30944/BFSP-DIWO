@@ -34,7 +34,6 @@ namespace ALG2 {
         return justify_d(d, sigma_min, sigma_max);
     }
 
-    // 重载calculate_sigma_k
     double Sigma::calculate_sigma_k(double sigma_min, double sigma_max) const {
         return (1 - (static_cast<double>(clock() - start)) / t_max) * (sigma_max - sigma_min) + sigma_min;
     }

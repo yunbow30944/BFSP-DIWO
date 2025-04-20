@@ -269,6 +269,27 @@ void Utils::print_pi(vector<int> order) {
     cout<<"==================== end of pi order =================="<<endl;
 }
 
+/*
+ *  @R: 运行次数
+ *  @C_min: 此算例下的最优解的完工时间
+ *  @C_i: 此算例下某算法运行R次得到的序列
+ *  计算单个的算例的ARPD
+ *  本ARPD的计算将原公式化简推导后得到
+ */
+double Utils::ARPD(const int &R, const int &C_min, const vector<int> &C_i)
+{
+    if (R <= 0)
+        throw std::runtime_error("ARPD error: R <= 0!");
+    if (C_min <= 0)
+        throw std::runtime_error("ARPD error: C_min <= 0!");
+    if (R != C_i.size())
+        throw std::runtime_error("ARPD error: R!= C_i.size()!");
+
+    int C_sum = std::accumulate(C_i.begin(), C_i.end(), 0);
+    double ans = (static_cast<double>(100 * C_sum) / static_cast<double>(R * C_min)) - 100.0;
+    return ans;
+}
+
 //返回位置、makespan
 pair<int,int> Utils::neighbor_insertion(int length, int job, vector<vector<int> > e_2, vector<vector<int> > f_2, vector<vector<int> >processing_time) {
     int m = globalData.m;

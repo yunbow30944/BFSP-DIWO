@@ -54,7 +54,6 @@ public:
 
     GlobalData(const GlobalData &gDtmp);
 
-
     ~GlobalData() {
         if (_dataMemoryPtr) {
             delete _dataMemoryPtr;
