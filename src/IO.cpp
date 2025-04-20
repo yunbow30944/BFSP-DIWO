@@ -286,10 +286,17 @@ namespace IO
             for (int i = 0; i < R; i++)
             {
                 double ARPD_Result = run_single_ARPD_Calculate(1, C_min_map[datasetName][cnt], memory);
-                fileOut << filePath << "," << jobNum << "," << machineNum << "," << cnt << "," << ARPD_Result << ",";
-                for (const auto &i : globalData.best_seq)
-                    fileOut << i << ",";
-                fileOut << "\n";
+                fileOut << filePath << "," << jobNum << "," << machineNum << "," << cnt << "," << ARPD_Result << ","<<globalData.bestmakespan<<",";
+                for (int j=1;j<globalData.best_seq.size();j++)
+                    fileOut << globalData.best_seq[j] << " ";
+                fileOut << ","
+                        << globalData.P_max << ","
+                        << globalData.S_MIN << ","
+                        << globalData.S_MAX << ","
+                        << globalData.SIGMA_MIN << ","
+                        << globalData.SIGMA_MAX << ","
+                        << globalData.pls << ","
+                        << globalData.rho << "\n";
             }
             cnt++;
         }
@@ -306,12 +313,17 @@ namespace IO
         if (!std::filesystem::exists(datasetDirPath) || !std::filesystem::is_directory(datasetDirPath))
             throw std::domain_error("Invalid datasetDirPath!");
 
-       // std::ofstream fileOut("BestSeq_ARPD.csv", std::ios::app);
-        std::ofstream fileOut("../data/BestSeq_ARPD.csv", std::ios::trunc);//若存在，先删除再写入
-        if (!fileOut.is_open()) {
-            std::cerr << "Failed to create/open file!" << std::endl;
-            // 错误处理
+        std::ofstream fileOut("../data/BestSeq_ARPD.csv", std::ios::app);
+        if (!fileOut.is_open()) throw std::runtime_error("无法打开文件");
+
+        // 检查是否需要写表头（通过文件空判断）
+        fileOut.seekp(0, std::ios::end);
+        bool write_header = (fileOut.tellp() == 0);
+        if (write_header) {
+            fileOut << "File path,Num of jobs,Num of machines,Dataset,ARPD,Bestmakespan,Best sequence of all,"
+                    << "P_max,S_min,S_max,Sigma_min,Sigma_max,pls,rho\n";
         }
+
 
         //writeC_min();
         // C_min_map用于存储C_min序列，std::string用于存储数据集的名称n*m，std::vector用于存储第几个数据集存储的C_min
@@ -363,7 +375,7 @@ namespace IO
 
         // 计算每个文件中的所有的数据集的ARPD并与最佳序列一起保存
         // 遍历目录
-        fileOut << "File path,Num of jobs,Num of machines,Dataset,ARPD,Best sequence of all" << std::endl;
+        //fileOut << "File path,Num of jobs,Num of machines,Dataset,ARPD,Best sequence of all" << std::endl;
         for (const auto &entry : std::filesystem::directory_iterator(datasetDirPath))
         {
             if (std::filesystem::is_regular_file(entry.status()))
