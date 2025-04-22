@@ -6,7 +6,7 @@
 #define IO_SHOW_FINAL_RESULT
 #define NO_IO_ALL
 
-static const std::string datasetDirPath = "../data/NEH/tests";
+static const std::string datasetDirPath = "../data/NEH/test";
 // tests文件夹目录，默认程序在cmake-build-debug目录下，如果移动程序需要修改
 
 namespace IO
@@ -15,9 +15,8 @@ namespace IO
      *  @file: 文件读取流
      *  用于读取某文件中的某单个数据集
      *  与globalData.setData()大致相同
-     *  返回值为得到的number of jobs, number of machines
      */
-    pair<int, int> setData(std::ifstream &file)
+    void setData(std::ifstream &file)
     {
         string line;
         getline(file, line);
@@ -61,7 +60,6 @@ namespace IO
             }
         }
         Utils::sort_by_tot_processing_time(globalData.indice, globalData.total_processing_time);
-        return {n, m};
     }
 
     /*
@@ -163,10 +161,10 @@ namespace IO
         while (std::getline(file, line))
         {
             globalData.resetData();
-            auto [jobNum, machineNum] = setData(file); // 设置globalData
-            runSingleExample();                        // 使用算法跑当前数据集样例
+            setData(file); // 设置globalData中算例相关数据
+            runSingleExample();  // 使用算法跑当前数据集样例
             // 保存数据
-            fileOut << filePath << "," << jobNum << "," << machineNum << "," << cnt << ",";
+            fileOut << filePath << "," << globalData.n << "," << globalData.m << "," << cnt << ",";
 
             cnt++;
             for (const auto &i : globalData.best_seq)
@@ -212,15 +210,14 @@ namespace IO
      *  @memory: 数据集内容
      *  运行并计算单个算例的ARPD，返回ARPD
      */
-    double run_single_ARPD_Calculate(const int &R, const int &C_min, const GlobalData &memory)
+    double run_single_ARPD_Calculate(const int &R, const int &C_min)
     {
         vector<int> C_i;
 
         for (int i = 0; i < R; i++)
         {
-            globalData.resetData();
-            auto [jobNum, machineNum] = loadMemory(memory); // 设置globalData
-            runSingleExample();                             // 使用算法跑当前数据集样例
+            globalData.resetData();//清空运行时信息
+            runSingleExample();  // 使用算法跑当前数据集样例
             C_i.push_back(globalData.best_seq[0]);
         }
 
@@ -242,7 +239,7 @@ namespace IO
      *  @memory: 上一次运行算法前的存储的数据集相关数据
      *  将上一次运行算法前的数据加载到globalData中，便于重复运行同一个数据集
      */
-    pair<int, int> loadMemory(const GlobalData &memory)
+    void loadMemory(const GlobalData &memory)
     {
         globalData.n = memory.n;
         globalData.m = memory.m;
@@ -257,7 +254,6 @@ namespace IO
                 globalData.total_processing_time[j] += globalData.processing_time[j][i];
             }
         Utils::sort_by_tot_processing_time(globalData.indice, globalData.total_processing_time);
-        return {memory.n, memory.m};
     }
 
 
@@ -279,15 +275,13 @@ namespace IO
         int cnt = 1;
         while (std::getline(file, line))
         {
-            globalData.resetData();
-            auto [jobNum, machineNum] = setData(file);
-            GlobalData memory(globalData);
-            std::string datasetName = to_string(jobNum) + "*" + to_string(machineNum);
+            setData(file);// 设置算例相关全局变量
+            std::string datasetName = to_string(globalData.n) + "*" + to_string(globalData.m);
             for (int i = 0; i < R; i++)
             {
-                double ARPD_Result = run_single_ARPD_Calculate(1, C_min_map[datasetName][cnt], memory);
-                fileOut << filePath << "," << jobNum << "," << machineNum << "," << cnt << "," << ARPD_Result << ","<<globalData.bestmakespan<<",";
-                for (int j=1;j<globalData.best_seq.size();j++)
+                double ARPD_Result = run_single_ARPD_Calculate(1, C_min_map[datasetName][cnt]);
+                fileOut << filePath << "," << globalData.n << "," << globalData.m << "," << cnt << "," << ARPD_Result << ","<<globalData.bestmakespan<<",";
+                for (int j = 1; j < globalData.best_seq.size(); j++)
                     fileOut << globalData.best_seq[j] << " ";
                 fileOut << ","
                         << globalData.P_max << ","
@@ -313,7 +307,7 @@ namespace IO
         if (!std::filesystem::exists(datasetDirPath) || !std::filesystem::is_directory(datasetDirPath))
             throw std::domain_error("Invalid datasetDirPath!");
 
-        std::ofstream fileOut("../data/BestSeq_ARPD.csv", std::ios::app);
+        std::ofstream fileOut("../data/P_max-30/BestSeq_ARPD.csv", std::ios::app);
         if (!fileOut.is_open()) throw std::runtime_error("无法打开文件");
 
         // 检查是否需要写表头（通过文件空判断）
@@ -324,8 +318,6 @@ namespace IO
                     << "P_max,S_min,S_max,Sigma_min,Sigma_max,pls,rho\n";
         }
 
-
-        //writeC_min();
         // C_min_map用于存储C_min序列，std::string用于存储数据集的名称n*m，std::vector用于存储第几个数据集存储的C_min
         std::unordered_map<std::string, std::vector<int>> C_min_map;
 

@@ -30,43 +30,13 @@ void GlobalData::setData() {
     cout<<endl;
 #endif
 }
-GlobalData::GlobalData(const GlobalData &gDtmp):
-    n(gDtmp.n), m(gDtmp.m),
-    processing_time(gDtmp.processing_time),
-    total_processing_time(gDtmp.total_processing_time),
-    indice(gDtmp.indice), POP(gDtmp.POP),
-    POP2(gDtmp.POP2), best_seq(gDtmp.best_seq),
-    bestmakespan(gDtmp.bestmakespan),
-    P_max(gDtmp.P_max),lambda(gDtmp.lambda), x(gDtmp.x),
-    pls(gDtmp.pls),
-    S_MIN(gDtmp.S_MIN),S_MAX(gDtmp.S_MAX),
-    SIGMA_MIN(gDtmp.SIGMA_MIN),SIGMA_MAX(gDtmp.SIGMA_MAX),
-    rho(gDtmp.rho)
-{
-    _dataMemoryPtr = new _dataMemory(n, m, processing_time, total_processing_time,
-                                  indice, POP, POP2, best_seq, bestmakespan,
-                                  lambda, x, P_max, S_MIN, S_MAX, SIGMA_MIN, SIGMA_MAX, pls, rho);
-}
 
+// 清空运行时信息
 void GlobalData::resetData() {
-    n = this->_dataMemoryPtr->n;
-    m = this->_dataMemoryPtr->m;
-    processing_time = this->_dataMemoryPtr->processing_time;
-    total_processing_time = this->_dataMemoryPtr->total_processing_time;
-    indice = this->_dataMemoryPtr->indice;
-    POP = this->_dataMemoryPtr->POP;
-    POP2 = this->_dataMemoryPtr->POP2;
-    best_seq = this->_dataMemoryPtr->best_seq;
-    bestmakespan = this->_dataMemoryPtr->bestmakespan;
-    P_max = this->_dataMemoryPtr->P_max;
-    lambda = this->_dataMemoryPtr->lambda;
-    x = this->_dataMemoryPtr->x;
-    pls = this->_dataMemoryPtr->pls;
-    S_MIN = this->_dataMemoryPtr->S_MIN;
-    S_MAX = this->_dataMemoryPtr->S_MAX;
-    SIGMA_MIN = this->_dataMemoryPtr->SIGMA_MIN;
-    SIGMA_MAX = this->_dataMemoryPtr->SIGMA_MAX;
-    rho = this->_dataMemoryPtr->rho;
+    POP.clear();
+    POP2.clear();
+    best_seq.clear();
+    bestmakespan = 0;
 }
 
 // 定义全局数据对象

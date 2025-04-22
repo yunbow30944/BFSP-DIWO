@@ -26,15 +26,13 @@
 // #define IO_SHOW_FINAL_RESULT    // 运行时在控制台输出最终结果
 
 namespace IO {
-    pair<int, int> setData(std::ifstream& file);
+    void setData(std::ifstream& file);
     void singleFileProcess(const std::string& filePath, std::ofstream& fileOut);
     void runSingleExample();
     void getBestSeqAndSave();
-    //void writeC_min();
-    double run_single_ARPD_Calculate(const int &R, const int &C_min, const GlobalData &memory);
-    pair<int, int> loadMemory(const GlobalData &memory);
+    double run_single_ARPD_Calculate(const int &R, const int &C_min);
+    void loadMemory(const GlobalData &memory);
     void singleFileProcessWithARPD(const std::string &filePath, std::ofstream &file, const std::unordered_map<std::string, std::vector<int>> &C_min_map, const int &R);
-    //void getARPDAndSave(const int &R);
     void getARPD_BestSeqAndSave(const int &R);
 };
 

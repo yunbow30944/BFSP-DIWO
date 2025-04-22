@@ -35,24 +35,24 @@ public:
     int rho; // 时间
 
     //调参用
-    inline const static vector<int> P_MAX_ARRAY = {10, 20, 30};
-    inline const static vector<int> S_MIN_ARRAY = {0, 1, 2};
-    inline const static vector<int> S_MAX_ARRAY = {5, 7, 9};
-    inline const static vector<int> SIGMA_MIN_ARRAY = {4, 5, 6};
-    inline const static vector<int> SIGMA_MAX_ARRAY = {8, 9, 10};
-    inline const static vector<double> PLS_ARRAY = {0.15, 0.25, 0.35};
+    inline const static vector<int> P_MAX_ARRAY = {30}; //10,20,30
+    inline const static vector<int> S_MIN_ARRAY = {0}; //0,1,2
+    inline const static vector<int> S_MAX_ARRAY = {7}; //5,7,9
+    inline const static vector<int> SIGMA_MIN_ARRAY = {5}; //4,5,6
+    inline const static vector<int> SIGMA_MAX_ARRAY = {10}; //8,9,10
+    inline const static vector<double> PLS_ARRAY = {0.15}; //0.15, 0.25, 0.35
     inline const static vector<int> RHO_ARRAY = {90}; //{30, 60, 90};
 
-    // 构造函数
+    // 无参构造函数，只初始化超参数
     GlobalData() : n(0), m(0), lambda(25), x(5), P_max(10), S_MIN(0), S_MAX(7), SIGMA_MIN(5), SIGMA_MAX(10), pls(0.15),
-                   rho(90),
-                   _dataMemoryPtr(new _dataMemory(n, m, processing_time, total_processing_time,
-                                                  indice, POP, POP2, best_seq, bestmakespan,
-                                                  lambda, x, P_max, S_MIN, S_MAX, SIGMA_MIN, SIGMA_MAX, pls, rho
-                   )) {
+                   rho(90) {
     }
 
-    GlobalData(const GlobalData &gDtmp);
+    // 有参构造函数，将算例信息保存
+    GlobalData(const GlobalData &gDtmp): n(gDtmp.n), m(gDtmp.m), processing_time(gDtmp.processing_time),
+                                         total_processing_time(gDtmp.total_processing_time), indice(gDtmp.indice) {
+        _dataMemoryPtr = new _dataMemory(n, m, processing_time, total_processing_time, indice);
+    }
 
     ~GlobalData() {
         if (_dataMemoryPtr) {
@@ -68,7 +68,7 @@ public:
     void resetData();
 
 private:
-    // 用于存储初始值的类
+    // 用于存储算例信息的类
     class _dataMemory {
     public:
         const int n; // 组件数量
@@ -77,31 +77,11 @@ private:
         const vector<int> total_processing_time; // 每个组件的总处理时间
         const vector<int> indice; // 组件索引
 
-        const vector<vector<int> > POP; //种群
-        const vector<vector<int> > POP2;
-        const vector<int> best_seq;
-        const int bestmakespan;
-
-        //超参数
-        const int lambda, x, P_max; //ALG1参数
-        const int S_MIN, S_MAX, SIGMA_MIN, SIGMA_MAX; //ALG2参数
-        const double pls; //ALG3参数
-        const int rho; // 时间
-
-
     public:
+        // 构造函数
         _dataMemory(const int &n, const int &m, const vector<vector<int> > &processing_time,
-                    const vector<int> &total_processing_time, const vector<int> &indice,
-                    const vector<vector<int> > &POP, const vector<vector<int> > &POP2,
-                    const vector<int> &best_seq, const int &bestmakespan,
-                    const int &lambda, const int &x, const int &P_max,
-                    const int &S_MIN, const int &S_MAX, const int &SIGMA_MIN, const int &SIGMA_MAX,
-                    const double &pls,
-                    const int &rho
-        ): n(n), m(m), processing_time(processing_time), total_processing_time(total_processing_time), indice(indice),
-           POP(POP), POP2(POP2), best_seq(best_seq), bestmakespan(bestmakespan),
-           lambda(lambda), x(x), P_max(P_max), S_MIN(S_MIN), S_MAX(S_MAX), SIGMA_MIN(SIGMA_MIN), SIGMA_MAX(SIGMA_MAX),
-           pls(pls), rho(rho) {
+                    const vector<int> &total_processing_time, const vector<int> &indice): n(n), m(m),
+            processing_time(processing_time), total_processing_time(total_processing_time), indice(indice) {
         }
     };
 
