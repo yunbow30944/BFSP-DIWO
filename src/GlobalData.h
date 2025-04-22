@@ -35,7 +35,7 @@ public:
     int rho; // 时间
 
     //调参用
-    inline const static vector<int> P_MAX_ARRAY = {30}; //10,20,30
+    inline const static vector<int> P_MAX_ARRAY = {10}; //10,20,30
     inline const static vector<int> S_MIN_ARRAY = {0}; //0,1,2
     inline const static vector<int> S_MAX_ARRAY = {7}; //5,7,9
     inline const static vector<int> SIGMA_MIN_ARRAY = {5}; //4,5,6
