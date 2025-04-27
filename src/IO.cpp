@@ -6,7 +6,7 @@
 #define IO_SHOW_FINAL_RESULT
 #define NO_IO_ALL
 
-static const std::string datasetDirPath = "../data/NEH/tests";
+static const std::string datasetDirPath = "../data/NEH/test";
 // tests文件夹目录，默认程序在cmake-build-debug目录下，如果移动程序需要修改
 
 namespace IO
@@ -307,7 +307,7 @@ namespace IO
         if (!std::filesystem::exists(datasetDirPath) || !std::filesystem::is_directory(datasetDirPath))
             throw std::domain_error("Invalid datasetDirPath!");
 
-        std::ofstream fileOut("../data/P_max-20/BestSeq_ARPD.csv", std::ios::app);
+        std::ofstream fileOut("../data/P_max-10/BestSeq_ARPD.csv", std::ios::app);
         if (!fileOut.is_open()) throw std::runtime_error("无法打开文件");
 
         // 检查是否需要写表头（通过文件空判断）
