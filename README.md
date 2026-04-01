@@ -59,7 +59,7 @@
   + 03.23 Completed speed-up algorithm implementation
   + 04.26 Completed parameter tuning
   + 04.27 Project concluded!
-
+  + 2026.4.2 Open source the codebase
   ## Future Directions
 
   1. Attempt to improve the paper's algorithm
