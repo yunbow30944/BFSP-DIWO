@@ -1,46 +1,68 @@
-# BFSP
+  # BFSP-DIWO
 
-+ 2024.7.31上传了第一版本的NEH算法
+  ## Project Overview
 
-+ 8.9更新了下RSB-PF_NEH，上传了Alg1-NEH算法
+  This project addresses a variant of the Flowshop scheduling problem—the Blocking Flow-Shop Scheduling Problem (BFSP).
 
-+ 9.19上传NEH供参考
+  - Main algorithm: Discrete Invasive Weed Optimization (DIWO)
+  - Implementation: C++ with large-scale testing support
 
-+ 10.4 ALG1修改完成
+  ## Repository Structure
 
-+ 10.27 上传ALG2
+  - `src/`: C++ source code
+  - `data/NEH/`: NEH algorithm and datasets
+  - `result/`: Result output and processing
+    - `original/`: Raw results, processing scripts
+    - `final/`: Final aggregated data
+  - `LICENSE`: License information
+  - `CMakeLists.txt`: C++ build configuration
 
-+ 11.20 重新构建项目结构
+  ## Usage
 
-+ 11.21 ALG2修改调试完成
+  1. Build:
 
-+ 11.22 基础版ALG3构建完成，计算过程仍可优化速度
+  ```bash
+  mkdir build && cd build
+  cmake ..          
+  make              
+  ```
 
-+ 11.22 全部构建完成 bug待调
+  2. Runtime inputs:
 
-+ 11.23 bug修改完成
+  - `n`: Number of jobs
+  - `m`: Number of machines
+  - `processingtime`: Processing time matrix
 
-+ 2025.1.16 修改细节
+  ## References
 
-+ 3.23 加速算法修改完成
+  - Shao Z, Pi D, Shao W, et al. *An efficient discrete invasive weed optimization for blocking flow-shop scheduling problem*. Engineering Applications of Artificial Intelligence, 2019, 78: 124–141.
+  - Wang L, Pan Q K, Suganthan P N, et al. *A novel hybrid discrete differential evolution algorithm for blocking flow shop scheduling problems*. Computers & Operations Research, 2010, 37(3): 509–520.
+  - Pan Q K, Wang L. *Effective heuristics for the blocking flowshop scheduling problem with makespan minimization*. Omega, 2012, 40(2): 218–229.
+
+  ## LICENSE
+
+  - This project is primarily licensed under the MIT License (see `LICENSE` in the root directory).
+
+  ## Change Log
+
+  + 2024.07.31 Initial upload of NEH algorithm
+  + 08.09 Updated RSB-PF_NEH, uploaded Alg1-NEH algorithm
+  + 09.19 Uploaded NEH for reference
+  + 10.04 Completed ALG1 modifications
+  + 10.27 Uploaded ALG2
+  + 11.20 Restructured project layout
+  + 11.21 Completed ALG2 debugging
+  + 11.22 Completed basic ALG3 implementation; computation speed can still be optimized
+  + 11.22 Full implementation completed; bugs pending
+  + 11.23 Bug fixes completed
+  + 2025.01.16 Minor refinements
+  + 03.23 Completed speed-up algorithm implementation
+  + 04.26 Completed parameter tuning
+  + 04.27 Project concluded!
+
+  ## Future Directions
+
+  1. Attempt to improve the paper's algorithm
+  2. Attempt to optimize algorithm time complexity
+
   
-+ 4.26 完成调参
-  
-+ 4.27 结题！
-  
-  ---
-
-  下一步目标：
-
-  1. 降低计算时间复杂度，主要是邻域评估函数（参考文献中的/文中）
-  2. 减少内存占用，防止爆内存的情况出现（现在种群调大以后会出现）
-  3. 优化代码细节
-  4. 自动读取、运行算例
-  5. 尝试复现论文结果
-  6. 尝试改进论文算法
-
----
-
-调试方法：从NEH/tests的txt文件里复制算例，依次输入n，m，processingtime即可。
-
-算例理论和结果表一一对应，也可以和部分结果序列对照。

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 yunbow30944, EpsilonZYJ, find-xin
+
 cmake_minimum_required(VERSION 3.29)
 project(project)
 

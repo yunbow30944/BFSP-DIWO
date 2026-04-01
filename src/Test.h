@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 yunbow30944, EpsilonZYJ, find-xin
+
 #pragma once
 
 #ifndef TEST_H
@@ -10,8 +13,8 @@
 #include "IO.h"
 #include "Utils.h"
 
-namespace Test{
-    void test(const int& R);
+namespace Test {
+void test(const int &R);
 }
 
 #define NO_IO_ALL

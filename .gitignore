@@ -3,6 +3,7 @@
 .DS_Store
 ./*/DS_Store
 .idea
+.venv/
 # 构建输出目录
 /build/
 /out/
@@ -61,4 +62,3 @@ Desktop.ini
 cmake-build-debug/*
 cmake-build-debug/
 /build/
-/data/NEH/test/t_j20_m5.txt
