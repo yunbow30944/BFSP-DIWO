@@ -1,0 +1,12 @@
+Third-Party Components
+======================
+
+This project includes code from the following third-party projects:
+
+------------------------------------------------------------------------
+1. NEH Algorithm
+------------------------------------------------------------------------
+- Path:      ./data/NEH
+- License:   MIT License
+- Copyright: Copyright (c) 2021 mattianeroni
+- Source:    https://github.com/mattianeroni/NEH
